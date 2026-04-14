@@ -1,0 +1,11 @@
+{
+  "name": "site-silvia-helena",
+  "version": "1.0.0",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.2.2",
+    "tailwindcss": "^4.2.2"
+  },
+  "scripts": {
+    "build": "npx tailwindcss -i ./src/style.css -o ./dist/output.css --minify"
+  }
+}

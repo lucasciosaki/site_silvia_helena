@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Silvia Helena</title>
+    <link rel="stylesheet" href="./src/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="./src/output.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-1: #4a044e;
+            --bg-2: #581c87;
+            --bg-3: #7c2d12;
+            --card: rgba(45, 10, 58, 0.9);
+            --text: #ffffff;
+            --muted: #f5d0fe;
+            --input-text: #111827;
+            --primary: #c026d3;
+            --primary-hover: #d946ef;
+            --secondary: #f97316;
+            --secondary-hover: #fb923c;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 50%, var(--bg-3) 100%);
+        }
+
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background: rgba(74, 4, 78, 0.95);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            z-index: 20;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .brand img {
+            width: 58px;
+            height: auto;
+        }
+
+        .brand h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .back-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            background: var(--primary);
+            padding: 10px 14px;
+            border-radius: 10px;
+        }
+
+        .back-link:hover {
+            background: var(--primary-hover);
+        }
+
+        main {
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 110px 16px 24px;
+        }
+
+        .card {
+            width: min(900px, 100%);
+            background: var(--card);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 24px;
+            padding: 28px;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+        }
+
+        .card-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .card-header h2 {
+            margin: 0 0 8px;
+            font-size: clamp(2rem, 5vw, 3rem);
+        }
+
+        .card-header p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .forms {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        form h3 {
+            margin: 0 0 12px;
+            font-size: 1.5rem;
+        }
+
+        .field {
+            margin-bottom: 12px;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: #fdf4ff;
+        }
+
+        .field input {
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 1rem;
+            color: var(--input-text);
+            background: #fff;
+        }
+
+        .field input::placeholder {
+            color: #6b7280;
+        }
+
+        .btn {
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            margin-top: 8px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--secondary-hover);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 24px 0 16px;
+            color: #fdf4ff;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            font-size: 0.8rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            height: 1px;
+            flex: 1;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-google {
+            width: 100%;
+            border: none;
+            border-radius: 12px;
+            padding: 12px;
+            background: #fff;
+            color: #111827;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-google:hover {
+            background: #f3f4f6;
+        }
+
+        .btn-google i {
+            color: #ea4335;
+            margin-right: 8px;
+        }
+
+        @media (max-width: 760px) {
+            .forms {
+                grid-template-columns: 1fr;
+            }
+
+            .brand h1 {
+                font-size: 1.6rem;
+            }
+
+            .back-link {
+                font-size: 0.85rem;
+                padding: 9px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="topbar">
+        <div class="brand">
+            <img src="./assets/logo_site_silvia.png" alt="Logo Silvia Helena">
+            <h1 class="font_logo">Silvia Helena</h1>
+        </div>
+        <a href="./index.html" class="back-link">
+            Voltar para Home
+        </a>
+    </nav>
+
+    <main>
+        <section class="card">
+            <div class="card-header">
+                <h2 class="font_logo">Agende sua sessão</h2>
+                <p>Entre com sua conta, crie um cadastro ou continue com Google.</p>
+            </div>
+
+            <div class="forms">
+                <form>
+                    <h3>Entrar</h3>
+                    <div class="field">
+                        <label for="login-email">E-mail</label>
+                        <input id="login-email" type="email" placeholder="seuemail@exemplo.com">
+                    </div>
+                    <div class="field">
+                        <label for="login-senha">Senha</label>
+                        <input id="login-senha" type="password" placeholder="Sua senha">
+                    </div>
+                    <button type="button" class="btn btn-primary">
+                        Entrar
+                    </button>
+                </form>
+
+                <form>
+                    <h3>Criar conta</h3>
+                    <div class="field">
+                        <label for="cadastro-nome">Nome</label>
+                        <input id="cadastro-nome" type="text" placeholder="Seu nome completo">
+                    </div>
+                    <div class="field">
+                        <label for="cadastro-email">E-mail</label>
+                        <input id="cadastro-email" type="email" placeholder="seuemail@exemplo.com">
+                    </div>
+                    <div class="field">
+                        <label for="cadastro-senha">Senha</label>
+                        <input id="cadastro-senha" type="password" placeholder="Crie uma senha">
+                    </div>
+                    <button type="button" class="btn btn-secondary">
+                        Criar conta
+                    </button>
+                </form>
+            </div>
+
+            <div class="divider">ou</div>
+            <button type="button" class="btn-google">
+                <i class="fa-brands fa-google text-red-500"></i>
+                Continuar com Google
+            </button>
+        </section>
+    </main>
+</body>
+</html>

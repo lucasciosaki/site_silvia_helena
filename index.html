@@ -3,92 +3,472 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Título do Seu Site</title>
-    <link rel="stylesheet" href="/src/style.css">
+    <title>Silvia Helena | Terapia Multidimensional</title>
+    <link rel="stylesheet" href="./src/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="/src/output.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-1: #3f0a4a;
+            --bg-2: #5b1b68;
+            --brand: #c026d3;
+            --brand-strong: #86198f;
+            --text-light: #fdf4ff;
+            --text-dark: #2d1335;
+            --surface: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text-dark);
+            background: #fff;
+        }
+
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            backdrop-filter: blur(8px);
+            background: rgba(63, 10, 74, 0.9);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+        }
+
+        .topbar-inner {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 260px;
+        }
+
+        .brand img {
+            width: 56px;
+            height: auto;
+        }
+
+        .brand h1 {
+            margin: 0;
+            color: var(--text-light);
+            font-size: 2rem;
+        }
+
+        .menu {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #f3d8fb;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .menu a:hover {
+            color: #fff;
+        }
+
+        .menu .cta {
+            background: var(--brand);
+            padding: 10px 14px;
+            border-radius: 10px;
+        }
+
+        .menu .cta:hover {
+            background: #d946ef;
+        }
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            text-align: center;
+            color: var(--text-light);
+            padding: 120px 16px 48px;
+            overflow: hidden;
+        }
+
+        .hero img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(33, 5, 42, 0.86), rgba(64, 16, 83, 0.72), rgba(98, 52, 22, 0.58));
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 980px;
+        }
+
+        .hero h2 {
+            font-size: clamp(1.9rem, 5vw, 4rem);
+            text-transform: uppercase;
+            margin: 0 0 16px;
+            line-height: 1.15;
+        }
+
+        .hero h3 {
+            margin: 0;
+            font-size: clamp(2.1rem, 5vw, 4.2rem);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            margin: 14px auto 0;
+            color: #f8e8fd;
+            max-width: 760px;
+        }
+
+        .hero-link {
+            margin-top: 32px;
+            display: inline-block;
+            text-decoration: none;
+            color: #2a1131;
+            background: #fff;
+            padding: 12px 22px;
+            border-radius: 999px;
+            font-weight: 700;
+        }
+
+        .hero-link:hover {
+            background: #f5e8fa;
+        }
+
+        .section {
+            padding: 86px 16px;
+        }
+
+        .section-inner {
+            max-width: 1150px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+            align-items: center;
+        }
+
+        .section-card {
+            border-radius: 20px;
+            padding: 28px;
+            color: #fff;
+            box-shadow: 0 18px 30px rgba(0, 0, 0, 0.14);
+        }
+
+        .section-card i {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+        }
+
+        .section-card h2 {
+            margin: 0 0 12px;
+            font-size: 2rem;
+            text-transform: uppercase;
+        }
+
+        .section-card p,
+        .section-text p {
+            margin: 0 0 12px;
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .section-text {
+            font-size: 1.05rem;
+        }
+
+        .section-therapy {
+            background: #fff1e6;
+        }
+
+        .section-therapy .section-card {
+            background: linear-gradient(140deg, #fb923c, #ea580c);
+        }
+
+        .section-therapy .section-text {
+            color: #7c2d12;
+        }
+
+        .section-about {
+            background: #fdf2f8;
+        }
+
+        .section-about .section-card {
+            background: linear-gradient(140deg, #db2777, #9d174d);
+        }
+
+        .section-about .section-text {
+            color: #831843;
+        }
+
+        .section-tech {
+            background: #f5f3ff;
+        }
+
+        .section-tech .section-card {
+            background: linear-gradient(140deg, #8b5cf6, #6d28d9);
+        }
+
+        .section-tech .section-text {
+            color: #4c1d95;
+        }
+
+        .agenda {
+            background: linear-gradient(135deg, #fca5a5, #f87171);
+        }
+
+        .agenda-wrap {
+            max-width: 860px;
+            margin: 0 auto;
+            text-align: center;
+            color: #7f1d1d;
+            background: rgba(255, 255, 255, 0.65);
+            border-radius: 24px;
+            padding: 34px 24px;
+            box-shadow: 0 18px 26px rgba(127, 29, 29, 0.2);
+        }
+
+        .agenda h2 {
+            margin: 0 0 8px;
+            text-transform: uppercase;
+            font-size: 2.1rem;
+        }
+
+        .agenda p {
+            margin: 0 0 22px;
+            line-height: 1.7;
+            font-size: 1.06rem;
+        }
+
+        .agenda a {
+            text-decoration: none;
+            display: inline-block;
+            padding: 12px 24px;
+            border-radius: 999px;
+            font-weight: 700;
+            color: #fff;
+            background: #be123c;
+        }
+
+        .agenda a:hover {
+            background: #9f1239;
+        }
+
+        footer {
+            background: #2e0a35;
+            color: #f3d8fb;
+            padding: 56px 16px 22px;
+        }
+
+        .footer-inner {
+            max-width: 1150px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        footer h4 {
+            margin: 0 0 10px;
+            color: #fff;
+        }
+
+        footer p,
+        footer a {
+            margin: 0 0 8px;
+            font-size: 0.95rem;
+            color: #f3d8fb;
+            text-decoration: none;
+            line-height: 1.55;
+        }
+
+        footer a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            max-width: 1150px;
+            margin: 22px auto 0;
+            border-top: 1px solid rgba(243, 216, 251, 0.2);
+            padding-top: 14px;
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            flex-wrap: wrap;
+            font-size: 0.8rem;
+            color: #dbb2eb;
+        }
+
+        @media (max-width: 920px) {
+            .section-inner,
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar-inner {
+                align-items: flex-start;
+            }
+
+            .menu {
+                justify-content: flex-start;
+            }
+        }
+    </style>
 </head>
 <body>
-    <nav class=" w-screen bg-fuchsia-600/80 z-50 fixed top-0 start-0">
-        <div class ="flex flex-row items-center justify-between p-1">
-            <span class = "shrink-0 flex flex-row items-center justify-center">
-                <img src="/assets/logo_site_silvia.png" class=" inline w-28 ">
-                <h1 class="inline font_logo text-fuchsia-50 text-4xl">Silvia Helena</h1>
+    <nav class="topbar">
+        <div class="topbar-inner">
+            <span class="brand">
+                <img src="./assets/logo_site_silvia.png" alt="Logo Silvia Helena">
+                <h1 class="font_logo">Silvia Helena</h1>
             </span>
-            <ul class = "grow flex flex-row items-center justify-evenly text-xl text-fuchsia-200">
+            <ul class="menu">
                 <li>
-                    <a href="#" class="hover:text-white transition-colors">Home</a>
+                    <a href="#hero">Home</a>
                 </li>
                 <li>
-                    <a href="#" class="hover:text-white transition-colors">Sobre Mim</a>
+                    <a href="#terapia">Terapia</a>
                 </li>
                 <li>
-                    <a href="#" class="hover:text-white transition-colors">Técnicas</a>
+                    <a href="#sobre">Sobre Mim</a>
                 </li>
-                <li class = "bg-fuchsia-900 px-4 py-2 rounded-lg hover:bg-fuchsia-800 p-3 transition-colors">
-                    <a href="#" > Agende sua consulta </a>
+                <li>
+                    <a href="#tecnicas">Técnicas</a>
+                </li>
+                <li>
+                    <a href="./login.html" class="cta">Agende sua consulta</a>
                 </li>
             </ul>
-
         </div>
     </nav>
 
 
-    <section id = "hero" class = "relative w-screen h-screen flex flex-col justify-center items-center">
-        <img src="assets/side-view-therapist-helping-woman-heal.jpg" class="  absolute inset-0 h-full w-full z-0 object-cover  " alt="Imagem gerada por IA de mulher se revitalizando energeticamente">
-        <div class="absolute inset-0 bg-gradient-to-b from-fuchsia-950/80 via-green-800/50 to-yellow-700/30 z-10"></div>
-        <div class="relative z-20 flex flex-col text-center justify-between items-center text-fuchsia-50">
-            <h1 class = "text-7xl p-8 m-8 uppercase ">Precisando de revitalização e realinhamento dos Chakras?</h1>
-            <h2 class = "text-7xl p-1 mt-4 font_logo"><b>Silvia Helena</b></h2>
-            <h3 class = "text-xl p text-shadow-sm text-shadow-black/60">Especialista em Calendário Numerológico e Terapia Multidimensional</h2>
-            <div class = "flex flex-col justify-center items-center mt-8 ">
-                <a href="#info" class="flex items-center p-3 bg-white/80 rounded-full text-black  hover:text-gray-800 transition-all duration-300 mb-4">
-                    <span class="text-xl uppercase tracking-widest font-medium">Conheça meu trabalho</span>
-                </a>
-                    <svg 
-                        xmlns="http://www.w3.org/2000/svg" 
-                        class="h-9 w-9 animate-bounce opacity-80 group-hover:opacity-100 transition-opacity" 
-                        fill="none" 
-                        viewBox="0 0 24 24" 
-                        stroke="currentColor" 
-                        stroke-width="1.5"
-                    >
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 13.5 12 21m0 0-7.5-7.5M12 21V3" />
-                    </svg>
-
-            </div>
+    <section id="hero" class="hero">
+        <img src="./assets/side-view-therapist-helping-woman-heal.jpg" alt="Imagem de terapia e revitalização">
+        <div class="hero-content">
+            <h2>Precisando de revitalização e realinhamento dos Chakras?</h2>
+            <h3 class="font_logo">Silvia Helena</h3>
+            <p>Especialista em Calendário Numerológico e Terapia Multidimensional, com atendimento acolhedor e foco no seu equilíbrio energético.</p>
+            <a href="#terapia" class="hero-link">Conheça meu trabalho</a>
         </div>
-
     </section>
 
-    <section id="info" class = "flex flex-col w-screen h-screen  bg-gray-50">
-    
-        <div class = "m-20 grow grid grid-cols-2 gap-8 tracking-tight">
-            <div class = "flex flex-col justify-evenly p-5 transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl bg-orange-400 rounded-2xl text-orange-50 text-center shadow-xl ">
-                <i class="fa-solid fa-circle-question text-7xl text-orange-800 m-2"></i>
-                <h1 class = "text-2xl uppercase m-2"> <b>Tire suas dúvidas sobre a Terapia Multidimensional</b></h1>
-                <a href="#" class = "bg-white/70 text-orange-600 hover:text-orange-700 transition-all p-4 hover:p-5  self-center rounded-2xl">Clique Aqui</a>
+    <section id="terapia" class="section section-therapy">
+        <div class="section-inner">
+            <div class="section-card">
+                <i class="fa-solid fa-circle-question"></i>
+                <h2>Terapia Multidimensional</h2>
+                <p>Nesta seção você pode apresentar como funciona a Terapia Multidimensional, quais são os objetivos do atendimento e como o processo contribui para equilíbrio e bem-estar.</p>
             </div>
-            <div class = "flex flex-col justify-evenly p-5 transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl bg-pink-700 rounded-2xl text-pink-50 text-center shadow-xl">
-                <i class="fa-solid fa-user text-7xl text-pink-800 m-2"></i>
-                <h1 class = "text-2xl uppercase m-2"> <b>Quem é Silvia Helena?</b></h1>
-                <a href="#" class = "bg-white/70 text-pink-600 hover:text-pink-700 transition-all p-4 hover:p-5  self-center rounded-2xl">Clique Aqui</a>
-            </div>
-            <div class = "flex flex-col justify-evenly p-5 transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl bg-violet-400 rounded-2xl text-violet-50 text-center shadow-xl">
-                  <i class="fa-solid fa-book text-7xl text-violet-800 m-2"></i>
-                <h1 class = "text-2xl uppercase m-4"> <b>Que tipo de Técnicas eu uso?</b></h1>
-                <a href="#" class = "bg-white/70 text-violet-600 hover:text-violet-700 transition-all p-4 hover:p-5 self-center rounded-2xl">Clique Aqui</a>
-            </div>
-            <div class = "flex flex-col justify-evenly p-5 transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-2xl bg-red-400 rounded-2xl text-red-50 text-center shadow-xl">
-                <i class="fa-solid fa-calendar-days text-7xl text-red-800 m-2"></i>
-                <h1 class = "text-2xl uppercase m-4"> <b>Agende já sua sessão!</b></h1>
-                <a href="#" class = "bg-white/70 text-red-600 hover:text-red-700 transition-all p-4 hover:p-5 self-center rounded-xl">Clique Aqui</a>
+            <div class="section-text">
+                <p class="mb-4">Use este espaço para explicar a sessão passo a passo, duração média e principais dúvidas de quem está começando.</p>
+                <p>Também é possível destacar benefícios e orientações antes e depois de cada atendimento, deixando as informações organizadas e fáceis de consultar.</p>
             </div>
         </div>
     </section>
-    
-    
 
-    <p class="text-xs text-gray-400">Imagens por Freepik</p>
+    <section id="sobre" class="section section-about">
+        <div class="section-inner">
+            <div class="section-text">
+                <p class="mb-4">Aqui você pode inserir uma biografia profissional, contando sua trajetória, formação e experiência com terapias integrativas.</p>
+                <p>Esse bloco também pode reunir missão, valores e abordagem de atendimento para transmitir confiança e proximidade com o público.</p>
+            </div>
+            <div class="section-card">
+                <i class="fa-solid fa-user"></i>
+                <h2>Quem é Silvia Helena?</h2>
+                <p>Espaço dedicado para apresentar sua história, propósito e o diferencial do seu trabalho terapêutico.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="tecnicas" class="section section-tech">
+        <div class="section-inner">
+            <div class="section-card">
+                <i class="fa-solid fa-book"></i>
+                <h2>Técnicas Utilizadas</h2>
+                <p>Nesta parte você pode descrever as técnicas que utiliza, os objetivos de cada uma e como elas se complementam ao longo do atendimento.</p>
+            </div>
+            <div class="section-text">
+                <p class="mb-4">Liste métodos, práticas e benefícios esperados de forma clara para que a pessoa entenda como será acompanhada.</p>
+                <p>Você pode incluir orientações práticas, frequência recomendada e exemplos de aplicação conforme a necessidade de cada cliente.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="agende" class="section agenda">
+        <div class="agenda-wrap">
+            <i class="fa-solid fa-calendar-days"></i>
+            <h2>Agende já sua sessão</h2>
+            <p>Para agendar sua consulta, acesse a área de login/cadastro e continue o atendimento online com praticidade.</p>
+            <a href="./login.html">Ir para agendamento</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div>
+                <h4>Silvia Helena</h4>
+                <p>Terapia Multidimensional e Calendário Numerológico com foco em bem-estar e equilíbrio energético.</p>
+            </div>
+            <div>
+                <h4>Contato</h4>
+                <p>Telefone: (11) 99999-9999</p>
+                <p>E-mail: contato@silviahelena.com.br</p>
+                <p>WhatsApp: (11) 98888-8888</p>
+            </div>
+            <div>
+                <h4>Atendimento</h4>
+                <p>Segunda a Sexta: 09h às 18h</p>
+                <p>Sábado: 09h às 13h</p>
+                <p>Atendimento online e presencial</p>
+            </div>
+            <div>
+                <h4>Links rápidos</h4>
+                <p><a href="#hero">Home</a></p>
+                <p><a href="#terapia">Terapia</a></p>
+                <p><a href="#sobre">Sobre Mim</a></p>
+                <p><a href="#tecnicas">Técnicas</a></p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Silvia Helena. Todos os direitos reservados.</p>
+            <p>Política de Privacidade | Termos de Uso</p>
+        </div>
+    </footer>
 </body>
 </html>
