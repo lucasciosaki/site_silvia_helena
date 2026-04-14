@@ -1,48 +1,50 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
     <meta charset="UTF-8">
-    <title>Agendamento - Terapeuta</title>
-    <link rel="stylesheet" href="./src/agendamento.css">
+    <!-- viewport estava ausente — adicionado para corrigir layout em mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento | Silvia Helena</title>
+    <!-- Estilos: global primeiro (tokens e componentes), depois específico da página -->
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/agendamento.css">
 </head>
-
 <body>
 
-    <header>
-        <div class="logo">
-            <img src="./assets/logo_site_silvia.png" alt="Logo do Terapeuta" class="logo-img">
-            <span class="nome-terapeuta">Silvia Helena</span>
+    <!-- NAVBAR: estrutura padronizada, igual em todas as páginas -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="./index.html" class="navbar-brand">
+                <img src="./assets/logo_site_silvia.png" alt="Logo Silvia Helena">
+                <span class="font-logo">Silvia Helena</span>
+            </a>
+            <ul class="navbar-menu">
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./sobre-silvia.html">Sobre</a></li>
+                <li><a href="./tecnicas.html">Técnicas</a></li>
+            </ul>
         </div>
+    </nav>
 
-        <nav class="nav-links">
-            <a href="#">Menu</a>
-            <a href="#">Sobre</a>
-            <a href="#">Técnicas</a>
-        </nav>
-
-        <div class="cliente-area">
-            <a href="#" class="btn-area-cliente">Area do Cliente</a>
-        </div>
-    </header>
-
+    <!-- HERO -->
     <section class="hero">
         <div class="hero-content">
             <h1>Equilíbrio e Autoconhecimento</h1>
             <p>Agende sua sessão de Reiki ou Mapa Numerológico de forma simples e rápida.</p>
             <a href="#agendamento-completo" class="btn-scroll">Começar Agendamento</a>
-            <a href="#agendamentos-marcados" class="btn-scroll">Ver agendamentos já marcados</a>
+            <a href="#agendamentos-marcados" class="btn-scroll">Ver agendamentos marcados</a>
         </div>
     </section>
 
-
+    <!-- CALENDÁRIO E HORÁRIOS -->
     <section id="agendamento-completo" class="agendamento-completo">
+
+        <!-- Calendário mensal -->
         <div class="calendario-box">
             <div class="mes-header">
-                <button id="prev-mes">
-                    < </button>
-                        <h3 id="mes-ano-texto">Mês Ano</h3>
-                        <button id="next-mes"> > </button>
+                <button id="prev-mes">&lt;</button>
+                <h3 id="mes-ano-texto">Mês Ano</h3>
+                <button id="next-mes">&gt;</button>
             </div>
             <div class="dias-semana">
                 <div>Dom</div>
@@ -56,28 +58,25 @@
             <div id="dias-grid" class="dias-grid"></div>
         </div>
 
+        <!-- Painel de horários (aparece ao selecionar um dia) -->
         <div id="painel-horarios" class="horarios-box hidden">
             <h3>Horários para <span id="dia-selecionado">--</span></h3>
-            <div id="lista-botoes-horas" class="grid-botoes-horas">
-            </div>
             <div id="lista-botoes-horas" class="grid-botoes-horas"></div>
 
             <div id="confirmar-box" class="hidden">
-                <!--<p>Digite seu nome para confirmar:</p>
-                <input type="text" id="nome-cliente" placeholder="Seu nome completo"
-                    style="width:100%; padding:10px; margin-bottom:10px;">-->
                 <button id="btn-final" class="btn-confirmar">Finalizar Agendamento</button>
             </div>
         </div>
 
     </section>
 
+    <!-- LISTA DE AGENDAMENTOS CONFIRMADOS -->
     <section id="agendamentos-marcados" class="agendamentos-marcados">
         <h2>Agendamentos Marcados</h2>
-        <div id="lista-agendamentos" class="lista-agendamentos"></div>
+        <div id="lista-agendamentos"></div>
     </section>
 
-    <script src="./agendamento.js"></script>
-</body>
+    <script src="./js/agendamento.js"></script>
 
+</body>
 </html>

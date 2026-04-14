@@ -1,0 +1,256 @@
+/* ============================================================
+   PAGINA-INTERNA.CSS
+   Layout compartilhado pelas páginas de conteúdo:
+   sobre-silvia.html, tecnicas.html, terapia-multidimensional.html
+   ============================================================ */
+
+body {
+  min-height: 100vh;
+  color: var(--color-text-light);
+}
+
+/* Gradientes temáticos — um por página, aplicado via classe no <body> */
+body.pagina--sobre {
+  background: linear-gradient(160deg, #831843 0%, #4a044e 55%, #1e1b4b 100%);
+}
+
+body.pagina--tecnicas {
+  background: linear-gradient(160deg, #5b21b6 0%, #4a044e 55%, #3f3f46 100%);
+}
+
+body.pagina--terapia {
+  background: linear-gradient(160deg, #7c2d12 0%, #4a044e 55%, #3b0764 100%);
+}
+
+/* ============================================================
+   CONTAINER PRINCIPAL
+   ============================================================ */
+.container {
+  max-width: 940px;
+  margin: 0 auto;
+  /* padding-top: navbar fixa (60px) + respiro generoso */
+  padding: calc(var(--nav-height) + 40px) var(--space-md) 60px;
+}
+
+/* Link "← Voltar" acima do card */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  margin-bottom: var(--space-lg);
+  transition: color 0.2s ease;
+}
+
+.back-link:hover {
+  color: var(--color-surface);
+}
+
+/* ============================================================
+   CARD DE CONTEÚDO PRINCIPAL
+   ============================================================ */
+.content-card {
+  background: rgba(30, 6, 40, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  line-height: 1.75;
+  backdrop-filter: blur(4px);
+}
+
+.content-card h1 {
+  margin: 0 0 var(--space-lg);
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  color: var(--color-surface);
+  line-height: 1.2;
+}
+
+/* Subtítulo (h2) dentro do card — separa seções de conteúdo */
+.content-card h2 {
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-brand-hover);
+  margin: var(--space-xl) 0 var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.content-card h2:first-of-type {
+  margin-top: var(--space-lg);
+}
+
+.content-card p {
+  margin: 0 0 var(--space-md);
+  color: var(--color-text-muted);
+  font-size: 1.02rem;
+}
+
+.content-card p:last-child {
+  margin-bottom: 0;
+}
+
+.content-card strong {
+  color: var(--color-surface);
+  font-weight: 700;
+}
+
+/* ============================================================
+   COMPONENTES INTERNOS
+   ============================================================ */
+
+/* Grid de formação / timeline */
+.formacao-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: var(--space-md) 0 var(--space-lg);
+}
+
+.formacao-item {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 3px solid var(--color-brand);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+}
+
+.formacao-item .ano {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-brand-hover);
+  margin-bottom: 4px;
+}
+
+.formacao-item p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--color-text-light);
+}
+
+/* Cards de técnica (usados em tecnicas.html) */
+.tecnica-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-top: var(--space-md);
+}
+
+.tecnica-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  transition: background 0.2s ease;
+}
+
+.tecnica-card:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.tecnica-card .tecnica-icon {
+  font-size: 2rem;
+  color: var(--color-brand-hover);
+  flex-shrink: 0;
+  width: 48px;
+  text-align: center;
+  padding-top: 4px;
+}
+
+.tecnica-card h3 {
+  margin: 0 0 var(--space-sm);
+  font-size: 1.1rem;
+  color: var(--color-surface);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.tecnica-card p {
+  margin: 0 0 10px;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+.tecnica-card p:last-child {
+  margin-bottom: 0;
+}
+
+.tecnica-card .beneficios {
+  margin: 10px 0 0;
+  font-size: 0.88rem;
+  color: #c084fc; /* lilás claro para os benefícios — destaque sutil */
+  font-style: italic;
+}
+
+/* Destaque de duração da sessão */
+.sessao-destaque {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(192, 38, 211, 0.15);
+  border: 1px solid rgba(192, 38, 211, 0.3);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin: var(--space-lg) 0;
+}
+
+.sessao-destaque i {
+  font-size: 1.5rem;
+  color: var(--color-brand-hover);
+  flex-shrink: 0;
+}
+
+.sessao-destaque p {
+  margin: 0;
+  color: var(--color-text-light);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* CTA ao final da página */
+.cta-inline {
+  display: inline-block;
+  margin-top: var(--space-xl);
+  padding: 14px 28px;
+  background: var(--color-brand);
+  color: var(--color-surface);
+  text-decoration: none;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 1rem;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.cta-inline:hover {
+  background: var(--color-brand-hover);
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   RESPONSIVIDADE
+   ============================================================ */
+@media (max-width: 700px) {
+  .content-card {
+    padding: var(--space-lg);
+  }
+
+  .formacao-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tecnica-card {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

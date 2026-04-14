@@ -3,447 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silvia Helena | Terapia Multidimensional</title>
-    <link rel="stylesheet" href="./src/style.css">
+    <meta name="description" content="Silvia Helena de Oliveira — terapeuta holística especialista em Reiki Tibetano, Numerologia Pitagórica, Cone Hindu, Reflexologia Podal e Terapia Multidimensional. Atendimento online e presencial.">
+    <title>Silvia Helena | Terapia Multidimensional e Holística</title>
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/home.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        :root {
-            --bg-1: #3f0a4a;
-            --bg-2: #5b1b68;
-            --brand: #c026d3;
-            --brand-strong: #86198f;
-            --text-light: #fdf4ff;
-            --text-dark: #2d1335;
-            --surface: #ffffff;
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            color: var(--text-dark);
-            background: #fff;
-        }
-
-        .topbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 50;
-            backdrop-filter: blur(8px);
-            background: rgba(63, 10, 74, 0.9);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.16);
-        }
-
-        .topbar-inner {
-            max-width: 1180px;
-            margin: 0 auto;
-            padding: 10px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 14px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            min-width: 260px;
-        }
-
-        .brand img {
-            width: 56px;
-            height: auto;
-        }
-
-        .brand h1 {
-            margin: 0;
-            color: var(--text-light);
-            font-size: 2rem;
-        }
-
-        .menu {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 18px;
-            flex-wrap: wrap;
-        }
-
-        .menu a {
-            text-decoration: none;
-            color: #f3d8fb;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: color 0.2s ease;
-        }
-
-        .menu a:hover {
-            color: #fff;
-        }
-
-        .menu .cta {
-            background: var(--brand);
-            padding: 10px 14px;
-            border-radius: 10px;
-        }
-
-        .menu .cta:hover {
-            background: #d946ef;
-        }
-
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: grid;
-            place-items: center;
-            text-align: center;
-            color: var(--text-light);
-            padding: 120px 16px 48px;
-            overflow: hidden;
-        }
-
-        .hero img {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .hero::after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(180deg, rgba(33, 5, 42, 0.86), rgba(64, 16, 83, 0.72), rgba(98, 52, 22, 0.58));
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 980px;
-        }
-
-        .hero h2 {
-            font-size: clamp(1.9rem, 5vw, 4rem);
-            text-transform: uppercase;
-            margin: 0 0 16px;
-            line-height: 1.15;
-        }
-
-        .hero h3 {
-            margin: 0;
-            font-size: clamp(2.1rem, 5vw, 4.2rem);
-        }
-
-        .hero p {
-            font-size: 1.15rem;
-            margin: 14px auto 0;
-            color: #f8e8fd;
-            max-width: 760px;
-        }
-
-        .hero-link {
-            margin-top: 32px;
-            display: inline-block;
-            text-decoration: none;
-            color: #2a1131;
-            background: #fff;
-            padding: 12px 22px;
-            border-radius: 999px;
-            font-weight: 700;
-        }
-
-        .hero-link:hover {
-            background: #f5e8fa;
-        }
-
-        .section {
-            padding: 86px 16px;
-        }
-
-        .section-inner {
-            max-width: 1150px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 28px;
-            align-items: center;
-        }
-
-        .section-card {
-            border-radius: 20px;
-            padding: 28px;
-            color: #fff;
-            box-shadow: 0 18px 30px rgba(0, 0, 0, 0.14);
-        }
-
-        .section-card i {
-            font-size: 2.5rem;
-            margin-bottom: 12px;
-        }
-
-        .section-card h2 {
-            margin: 0 0 12px;
-            font-size: 2rem;
-            text-transform: uppercase;
-        }
-
-        .section-card p,
-        .section-text p {
-            margin: 0 0 12px;
-            line-height: 1.7;
-            font-size: 1.05rem;
-        }
-
-        .section-text {
-            font-size: 1.05rem;
-        }
-
-        .section-therapy {
-            background: #fff1e6;
-        }
-
-        .section-therapy .section-card {
-            background: linear-gradient(140deg, #fb923c, #ea580c);
-        }
-
-        .section-therapy .section-text {
-            color: #7c2d12;
-        }
-
-        .section-about {
-            background: #fdf2f8;
-        }
-
-        .section-about .section-card {
-            background: linear-gradient(140deg, #db2777, #9d174d);
-        }
-
-        .section-about .section-text {
-            color: #831843;
-        }
-
-        .section-tech {
-            background: #f5f3ff;
-        }
-
-        .section-tech .section-card {
-            background: linear-gradient(140deg, #8b5cf6, #6d28d9);
-        }
-
-        .section-tech .section-text {
-            color: #4c1d95;
-        }
-
-        .agenda {
-            background: linear-gradient(135deg, #fca5a5, #f87171);
-        }
-
-        .agenda-wrap {
-            max-width: 860px;
-            margin: 0 auto;
-            text-align: center;
-            color: #7f1d1d;
-            background: rgba(255, 255, 255, 0.65);
-            border-radius: 24px;
-            padding: 34px 24px;
-            box-shadow: 0 18px 26px rgba(127, 29, 29, 0.2);
-        }
-
-        .agenda h2 {
-            margin: 0 0 8px;
-            text-transform: uppercase;
-            font-size: 2.1rem;
-        }
-
-        .agenda p {
-            margin: 0 0 22px;
-            line-height: 1.7;
-            font-size: 1.06rem;
-        }
-
-        .agenda a {
-            text-decoration: none;
-            display: inline-block;
-            padding: 12px 24px;
-            border-radius: 999px;
-            font-weight: 700;
-            color: #fff;
-            background: #be123c;
-        }
-
-        .agenda a:hover {
-            background: #9f1239;
-        }
-
-        footer {
-            background: #2e0a35;
-            color: #f3d8fb;
-            padding: 56px 16px 22px;
-        }
-
-        .footer-inner {
-            max-width: 1150px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-        }
-
-        footer h4 {
-            margin: 0 0 10px;
-            color: #fff;
-        }
-
-        footer p,
-        footer a {
-            margin: 0 0 8px;
-            font-size: 0.95rem;
-            color: #f3d8fb;
-            text-decoration: none;
-            line-height: 1.55;
-        }
-
-        footer a:hover {
-            color: #fff;
-        }
-
-        .footer-bottom {
-            max-width: 1150px;
-            margin: 22px auto 0;
-            border-top: 1px solid rgba(243, 216, 251, 0.2);
-            padding-top: 14px;
-            display: flex;
-            justify-content: space-between;
-            gap: 8px;
-            flex-wrap: wrap;
-            font-size: 0.8rem;
-            color: #dbb2eb;
-        }
-
-        @media (max-width: 920px) {
-            .section-inner,
-            .footer-inner {
-                grid-template-columns: 1fr;
-            }
-
-            .topbar-inner {
-                align-items: flex-start;
-            }
-
-            .menu {
-                justify-content: flex-start;
-            }
-        }
-    </style>
 </head>
 <body>
-    <nav class="topbar">
-        <div class="topbar-inner">
-            <span class="brand">
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="#hero" class="navbar-brand">
                 <img src="./assets/logo_site_silvia.png" alt="Logo Silvia Helena">
-                <h1 class="font_logo">Silvia Helena</h1>
-            </span>
-            <ul class="menu">
-                <li>
-                    <a href="#hero">Home</a>
-                </li>
-                <li>
-                    <a href="#terapia">Terapia</a>
-                </li>
-                <li>
-                    <a href="#sobre">Sobre Mim</a>
-                </li>
-                <li>
-                    <a href="#tecnicas">Técnicas</a>
-                </li>
-                <li>
-                    <a href="./login.html" class="cta">Agende sua consulta</a>
-                </li>
+                <span class="font-logo">Silvia Helena</span>
+            </a>
+            <ul class="navbar-menu">
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#servicos">Serviços</a></li>
+                <li><a href="#sobre">Sobre Mim</a></li>
+                <li><a href="#sessao">A Sessão</a></li>
+                <li><a href="./login.html" class="btn-cta">Agendar Consulta</a></li>
             </ul>
         </div>
     </nav>
 
-
+    <!-- ===================================================
+         HERO
+    ==================================================== -->
     <section id="hero" class="hero">
-        <img src="./assets/side-view-therapist-helping-woman-heal.jpg" alt="Imagem de terapia e revitalização">
+        <img
+            class="hero-bg"
+            src="./assets/side-view-therapist-helping-woman-heal.jpg"
+            alt="Terapeuta realizando sessão de terapia integrativa"
+        >
         <div class="hero-content">
-            <h2>Precisando de revitalização e realinhamento dos Chakras?</h2>
-            <h3 class="font_logo">Silvia Helena</h3>
-            <p>Especialista em Calendário Numerológico e Terapia Multidimensional, com atendimento acolhedor e foco no seu equilíbrio energético.</p>
-            <a href="#terapia" class="hero-link">Conheça meu trabalho</a>
+            <h2>Equilíbrio Energético, Autoconhecimento e Cura Multidimensional</h2>
+            <h3 class="font-logo">Silvia Helena</h3>
+            <p>
+                Terapeuta holística com mais de 25 anos de experiência integrando ciência e espiritualidade.
+                Especialista em Reiki Tibetano, Numerologia Pitagórica e Akashica, Cone Hindu, Reflexologia
+                Podal e Terapia Multidimensional.
+            </p>
+            <div class="hero-badge">
+                <i class="fa-regular fa-clock"></i>
+                Sessões individuais de 1h30 a 2h — Online e Presencial
+            </div>
+            <br>
+            <a href="#servicos" class="hero-link">Conheça meu trabalho</a>
         </div>
     </section>
 
-    <section id="terapia" class="section section-therapy">
+    <!-- ===================================================
+         TERAPIA MULTIDIMENSIONAL (seção de destaque)
+    ==================================================== -->
+    <section id="terapia" class="section section--therapy">
         <div class="section-inner">
             <div class="section-card">
-                <i class="fa-solid fa-circle-question"></i>
+                <span class="tag">Carro-chefe</span>
+                <i class="fa-solid fa-infinity"></i>
                 <h2>Terapia Multidimensional</h2>
-                <p>Nesta seção você pode apresentar como funciona a Terapia Multidimensional, quais são os objetivos do atendimento e como o processo contribui para equilíbrio e bem-estar.</p>
+                <p>
+                    Uma abordagem inovadora que atua simultaneamente em múltiplas dimensões do ser — física,
+                    emocional, mental, espiritual e energética. Trabalho com 5 portais de atendimento,
+                    tecnologia multidimensional, códigos e mandalas de ascensão.
+                </p>
             </div>
             <div class="section-text">
-                <p class="mb-4">Use este espaço para explicar a sessão passo a passo, duração média e principais dúvidas de quem está começando.</p>
-                <p>Também é possível destacar benefícios e orientações antes e depois de cada atendimento, deixando as informações organizadas e fáceis de consultar.</p>
+                <p>
+                    O ser humano é multidimensional — e os desequilíbrios que se manifestam no corpo ou nas
+                    emoções têm, muitas vezes, raízes em planos mais sutis da existência. A Terapia
+                    Multidimensional trabalha justamente nesses planos, promovendo uma cura profunda e duradoura.
+                </p>
+                <p>
+                    Através dos 5 portais de atendimento — corpo, emoções, mente, alma e espírito — é possível
+                    identificar e liberar padrões que bloqueiam o seu potencial de cura, clareza e expansão.
+                    Os códigos de ascensão e as mandalas energéticas amplificam o processo, elevando sua
+                    frequência vibracional de forma gradual e integrada.
+                </p>
+                <p>
+                    <strong>Indicada para:</strong> pessoas que buscam superar bloqueios emocionais e energéticos,
+                    acelerar o autoconhecimento e reconectar com seu propósito de vida.
+                </p>
+                <a href="./terapia-multidimensional.html" class="section-link">
+                    Saiba mais sobre a Terapia Multidimensional →
+                </a>
             </div>
         </div>
     </section>
 
-    <section id="sobre" class="section section-about">
+    <!-- ===================================================
+         GRID DE SERVIÇOS / TÉCNICAS
+    ==================================================== -->
+    <section id="servicos" class="section--services">
+        <div class="section-inner-full">
+            <div class="section-header">
+                <h2>Técnicas e Especialidades</h2>
+                <p>Uma jornada integrativa que combina saberes milenares e metodologias contemporâneas para o seu equilíbrio pleno.</p>
+            </div>
+
+            <div class="services-grid">
+
+                <div class="service-card">
+                    <i class="fa-solid fa-hands-holding-circle"></i>
+                    <h3>Reiki Tibetano</h3>
+                    <p>Mestre em Reiki nos níveis 1, 2, 3, Tibetano e Reiki Tibetano. Harmonização de chakras, desbloqueio energético e restauração da vitalidade através da canalização de energia vital.</p>
+                </div>
+
+                <div class="service-card">
+                    <i class="fa-solid fa-hashtag"></i>
+                    <h3>Numerologia</h3>
+                    <p>Especialista pela Abran desde 2009 e em Numerologia Akashica (metodologia Glaucia Schatzman). Mapeamento do seu propósito de vida, talentos e ciclos de transformação.</p>
+                </div>
+
+                <div class="service-card">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i>
+                    <h3>Cone Hindu</h3>
+                    <p>Metodologia Emilyn Hasbeni. Bioenergética com geometria sagrada que reorganiza a aura e os corpos sutis, promovendo profunda limpeza energética e aumento de vitalidade.</p>
+                </div>
+
+                <div class="service-card">
+                    <i class="fa-solid fa-shoe-prints"></i>
+                    <h3>Reflexologia Podal</h3>
+                    <p>Certificada pela Escola Pés que Falam. Técnica milenar que trabalha pontos reflexos nos pés correspondentes a todos os órgãos e sistemas do corpo, promovendo equilíbrio e autocura.</p>
+                </div>
+
+                <div class="service-card">
+                    <i class="fa-solid fa-brain"></i>
+                    <h3>Psicologia Transpessoal</h3>
+                    <p>Especialização concluída em 2023. Abordagem que integra experiências espirituais e estados ampliados de consciência, promovendo crescimento interior e superação de crenças limitantes.</p>
+                </div>
+
+                <div class="service-card">
+                    <i class="fa-solid fa-horse"></i>
+                    <h3>Constelação com Cavalos</h3>
+                    <p>Constelação Sistêmica facilitada com cavalos — animais que percebem energias sutis e respondem aos estados emocionais com autenticidade, criando profundas revelações sistêmicas.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         SOBRE MIM
+    ==================================================== -->
+    <section id="sobre" class="section section--about">
         <div class="section-inner">
             <div class="section-text">
-                <p class="mb-4">Aqui você pode inserir uma biografia profissional, contando sua trajetória, formação e experiência com terapias integrativas.</p>
-                <p>Esse bloco também pode reunir missão, valores e abordagem de atendimento para transmitir confiança e proximidade com o público.</p>
+                <p>
+                    Sou <strong>Silvia Helena de Oliveira</strong>, bióloga de formação (1998) que encontrou na
+                    terapia holística o caminho para integrar ciência e espiritualidade de forma profunda e
+                    transformadora.
+                </p>
+                <p>
+                    Minha jornada começou com a Numerologia Pitagórica, pela qual me especializei na Abran em
+                    2009. Desde então, cada formação foi um passo consciente rumo a uma visão mais ampla do
+                    ser humano: Mestrado em Reiki Tibetano, Gestão de Serviços (Fatec, 2016), Reflexologia
+                    Podal, Cone Hindu, Constelação Sistêmica com Cavalos e, em 2023, a Especialização em
+                    Psicologia Transpessoal.
+                </p>
+                <p>
+                    Hoje ofereço um atendimento acolhedor que respeita o seu ritmo, integra diferentes saberes
+                    e tem como único objetivo: o seu equilíbrio e expansão.
+                </p>
+                <a href="./sobre-silvia.html" class="section-link">
+                    Conheça minha trajetória completa →
+                </a>
             </div>
             <div class="section-card">
-                <i class="fa-solid fa-user"></i>
+                <span class="tag">Terapeuta Holística</span>
+                <i class="fa-solid fa-user-nurse"></i>
                 <h2>Quem é Silvia Helena?</h2>
-                <p>Espaço dedicado para apresentar sua história, propósito e o diferencial do seu trabalho terapêutico.</p>
+                <p>Bióloga, Especialista em Psicologia Transpessoal, Mestre Reiki Tibetano e Numeróloga com mais de 25 anos de atuação.</p>
+                <p>Cada sessão é única — personalizada para as suas necessidades, com escuta ativa e presença integral.</p>
             </div>
         </div>
     </section>
 
-    <section id="tecnicas" class="section section-tech">
+    <!-- ===================================================
+         COMO FUNCIONA A SESSÃO
+    ==================================================== -->
+    <section id="sessao" class="section--session">
+        <div class="session-grid">
+            <div class="section-header">
+                <h2>Como Funciona uma Sessão</h2>
+                <p>Cada atendimento é conduzido com atenção individualizada, respeitando o seu momento e necessidade.</p>
+                <div class="duracao-badge">
+                    <i class="fa-regular fa-clock"></i>
+                    Duração: 1h30 a 2h por sessão
+                </div>
+            </div>
+
+            <div class="session-step">
+                <span class="step-number">1</span>
+                <h3>Acolhimento</h3>
+                <p>A sessão começa com uma conversa para compreender o que está presente para você — emoções, bloqueios, intenções ou dúvidas.</p>
+            </div>
+
+            <div class="session-step">
+                <span class="step-number">2</span>
+                <h3>Atendimento</h3>
+                <p>Aplicação das técnicas indicadas para o seu momento — Reiki, Numerologia, Cone Hindu, Reflexologia ou Terapia Multidimensional.</p>
+            </div>
+
+            <div class="session-step">
+                <span class="step-number">3</span>
+                <h3>Integração</h3>
+                <p>Ao final, orientações para integrar o que foi trabalhado no cotidiano — mantendo os benefícios além do espaço terapêutico.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================================
+         TÉCNICAS (visão geral)
+    ==================================================== -->
+    <section id="tecnicas" class="section section--tech">
         <div class="section-inner">
             <div class="section-card">
-                <i class="fa-solid fa-book"></i>
-                <h2>Técnicas Utilizadas</h2>
-                <p>Nesta parte você pode descrever as técnicas que utiliza, os objetivos de cada uma e como elas se complementam ao longo do atendimento.</p>
+                <span class="tag">Mais de 25 anos</span>
+                <i class="fa-solid fa-book-open"></i>
+                <h2>Formação e Metodologias</h2>
+                <p>Cada técnica foi escolhida com propósito e aprofundada com rigor — da Biologia à Psicologia Transpessoal, da Abran ao Mestrado em Reiki Tibetano.</p>
+                <p>O resultado é um ecossistema terapêutico que pode ser ativado de forma isolada ou integrada, conforme o que você precisa.</p>
             </div>
             <div class="section-text">
-                <p class="mb-4">Liste métodos, práticas e benefícios esperados de forma clara para que a pessoa entenda como será acompanhada.</p>
-                <p>Você pode incluir orientações práticas, frequência recomendada e exemplos de aplicação conforme a necessidade de cada cliente.</p>
+                <p>
+                    A combinação de formações científicas e holísticas é o que torna o atendimento de Silvia
+                    Helena único: a visão biológica do corpo humano dialoga com as tradições energéticas
+                    milenares do Reiki, da Numerologia e do Cone Hindu.
+                </p>
+                <p>
+                    Seja você alguém que busca uma primeira experiência com terapias holísticas ou que já tem
+                    uma trajetória de autoconhecimento, o atendimento é sempre adaptado ao seu nível de
+                    familiaridade e às suas necessidades do momento.
+                </p>
+                <a href="./tecnicas.html" class="section-link">
+                    Ver todas as técnicas e especialidades →
+                </a>
             </div>
         </div>
     </section>
 
-    <section id="agende" class="section agenda">
-        <div class="agenda-wrap">
-            <i class="fa-solid fa-calendar-days"></i>
-            <h2>Agende já sua sessão</h2>
-            <p>Para agendar sua consulta, acesse a área de login/cadastro e continue o atendimento online com praticidade.</p>
-            <a href="./login.html">Ir para agendamento</a>
+    <!-- ===================================================
+         CTA — AGENDAR
+    ==================================================== -->
+    <section id="agende" class="cta-agenda">
+        <div class="cta-agenda-inner">
+            <i class="fa-solid fa-calendar-check"></i>
+            <h2>Agende sua Sessão</h2>
+            <p>
+                Dê o primeiro passo rumo ao equilíbrio energético e ao autoconhecimento.
+                Atendimento online e presencial, com sessões de 1h30 a 2h.
+                Vagas limitadas — reserve a sua.
+            </p>
+            <a href="./login.html" class="cta-agenda-link">Quero Agendar Minha Sessão</a>
         </div>
     </section>
 
-    <footer>
+    <!-- ===================================================
+         FOOTER
+    ==================================================== -->
+    <footer class="footer">
         <div class="footer-inner">
             <div>
                 <h4>Silvia Helena</h4>
-                <p>Terapia Multidimensional e Calendário Numerológico com foco em bem-estar e equilíbrio energético.</p>
+                <p>Terapeuta holística especializada em Terapia Multidimensional, Reiki Tibetano, Numerologia Pitagórica e Akashica, Cone Hindu e Reflexologia Podal.</p>
             </div>
             <div>
                 <h4>Contato</h4>
@@ -455,20 +279,23 @@
                 <h4>Atendimento</h4>
                 <p>Segunda a Sexta: 09h às 18h</p>
                 <p>Sábado: 09h às 13h</p>
-                <p>Atendimento online e presencial</p>
+                <p>Online e presencial</p>
+                <p>Sessões de 1h30 a 2h</p>
             </div>
             <div>
-                <h4>Links rápidos</h4>
-                <p><a href="#hero">Home</a></p>
-                <p><a href="#terapia">Terapia</a></p>
-                <p><a href="#sobre">Sobre Mim</a></p>
-                <p><a href="#tecnicas">Técnicas</a></p>
+                <h4>Links Rápidos</h4>
+                <a href="#servicos">Serviços</a>
+                <a href="#sobre">Sobre Mim</a>
+                <a href="#sessao">A Sessão</a>
+                <a href="./tecnicas.html">Técnicas</a>
+                <a href="./login.html">Agendar</a>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>© 2026 Silvia Helena. Todos os direitos reservados.</p>
+            <p>© 2026 Silvia Helena de Oliveira. Todos os direitos reservados.</p>
             <p>Política de Privacidade | Termos de Uso</p>
         </div>
     </footer>
+
 </body>
 </html>

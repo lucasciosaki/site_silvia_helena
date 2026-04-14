@@ -1,0 +1,212 @@
+/* ============================================================
+   AGENDAMENTO.CSS
+   Estilos exclusivos da página de agendamento (agendamento.html).
+   Depende dos tokens definidos em global.css.
+   ============================================================ */
+
+body {
+  background: var(--color-bg-page);
+  color: var(--color-text-dark);
+}
+
+/* --- Hero da página de agendamento --- */
+.hero {
+  /* padding-top compensa a navbar fixa */
+  padding-top: var(--nav-height);
+  height: calc(60vh + var(--nav-height));
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(162, 28, 175, 0.5) 0%,
+      rgba(162, 28, 175, 0.2) 40%,
+      transparent 80%
+    ),
+    url('../assets/front-view-woman-healing-process.jpg') center / cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--color-surface);
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+/* Botões de scroll do hero */
+.btn-scroll {
+  display: inline-block;
+  margin: 20px 10px 0;
+  padding: 15px 30px;
+  background: var(--color-accent);
+  color: var(--color-surface);
+  text-decoration: none;
+  border-radius: var(--radius-full);
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.btn-scroll:hover {
+  background: var(--color-accent-hover);
+}
+
+/* ============================================================
+   ÁREA DE AGENDAMENTO — Calendário e painel de horários
+   ============================================================ */
+.agendamento-completo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  padding: 40px var(--space-md);
+}
+
+.calendario-box,
+.horarios-box {
+  background: var(--color-surface);
+  padding: 25px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  min-width: 320px;
+}
+
+/* Cabeçalho do calendário: seta anterior | Mês Ano | seta próximo */
+.mes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+/* Grid de 7 colunas para alinhar dias da semana e datas */
+.dias-semana,
+.dias-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
+
+.dias-semana div {
+  font-weight: bold;
+  color: var(--color-brand);
+  padding-bottom: 10px;
+}
+
+/* Célula de dia */
+.dia {
+  padding: 15px 5px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.2s ease, color 0.2s ease;
+  font-size: 1.1rem;
+}
+
+/* Modificador: hover desabilitado para dias "vazios" do calendário */
+.dia:hover:not(.dia--vazio) {
+  background: #7a0d8d;
+  color: var(--color-surface);
+}
+
+/* Modificador: dia selecionado pelo usuário */
+.dia--selecionado {
+  background: var(--color-brand);
+  color: var(--color-surface);
+  font-weight: bold;
+}
+
+/* Modificador: espaço vazio no início do mês — não é clicável */
+.dia--vazio {
+  cursor: default;
+}
+
+/* --- Painel de horários disponíveis --- */
+.grid-botoes-horas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Botão de horário individual
+   ATENÇÃO: estava definido 2x com estilos conflitantes no arquivo
+   original. Unificado aqui em uma única regra. */
+.btn-hora {
+  padding: 15px;
+  border: 2px solid var(--color-brand);
+  background: var(--color-surface);
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-hora:hover {
+  background: var(--color-brand);
+  color: var(--color-surface);
+}
+
+/* Modificador: horário escolhido pelo usuário */
+.btn-hora--selecionado {
+  background: var(--color-brand);
+  color: var(--color-surface);
+}
+
+/* Modificador: horário já ocupado — não pode ser selecionado */
+.btn-hora--ocupado {
+  background: #eee;
+  border-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Botão de confirmação final */
+.btn-confirmar {
+  width: 100%;
+  margin-top: 20px;
+  padding: 15px 30px;
+  background: var(--color-primary);
+  color: var(--color-surface);
+  border: none;
+  border-radius: var(--radius-full);
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 15px rgba(142, 14, 140, 0.3);
+}
+
+.btn-confirmar:hover {
+  background: var(--color-accent);
+  transform: scale(1.05);
+}
+
+/* ============================================================
+   LISTA DE AGENDAMENTOS CONFIRMADOS
+   ============================================================ */
+.agendamentos-marcados {
+  max-width: 800px;
+  background: var(--color-surface);
+  padding: 30px;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  margin: 50px auto;
+}
+
+/* Card de cada agendamento na lista */
+.agendamento-card {
+  background: #fdf4ff;
+  border-left: 5px solid var(--color-accent);
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  justify-content: space-between;
+}

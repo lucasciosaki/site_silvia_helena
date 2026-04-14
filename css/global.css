@@ -1,0 +1,269 @@
+/* ============================================================
+   GLOBAL.CSS
+   Fonte única da verdade: tokens de design, reset, navbar e
+   footer. Importado por TODAS as páginas do site.
+   ============================================================ */
+
+/* --- Fonte decorativa (logo/títulos) ---
+   Declarada aqui uma única vez para eliminar a duplicação que
+   existia em style.css e agendamento.css. */
+@font-face {
+  font-family: 'DancingScript-Regular';
+  src: url('../fonts/DancingScript-Regular.woff2') format('woff2'),
+       url('../fonts/DancingScript-Regular.woff') format('woff'),
+       url('../fonts/DancingScript-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* ============================================================
+   TOKENS DE DESIGN
+   Centralizados aqui para que qualquer ajuste de cor, fonte ou
+   espaçamento reflita automaticamente em todo o site.
+   ============================================================ */
+:root {
+  /* Paleta principal */
+  --color-primary:      #3f0a4a;  /* roxo escuro — navbar, elementos base */
+  --color-primary-dark: #2e0a35;  /* roxo mais escuro — footer */
+  --color-brand:        #c026d3;  /* fúcsia vibrante — CTAs e destaques */
+  --color-brand-hover:  #d946ef;
+  --color-accent:       #c2005b;  /* rosa-vinho — botões secundários */
+  --color-accent-hover: #9f1239;
+
+  /* Texto */
+  --color-text-light: #fdf4ff;  /* texto sobre fundos escuros */
+  --color-text-muted: #f3d8fb;  /* texto secundário sobre fundos escuros */
+  --color-text-dark:  #2d1335;  /* texto sobre fundos claros */
+
+  /* Superfícies */
+  --color-surface:  #ffffff;
+  --color-bg-page:  #f9fbfb;
+
+  /* Tipografia */
+  --font-body: Arial, Helvetica, sans-serif;
+  --font-logo: 'DancingScript-Regular', cursive;
+
+  /* Espaçamento — escala consistente */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 48px;
+
+  /* Bordas */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   20px;
+  --radius-full: 999px;
+
+  /* Layout */
+  --max-width:  1150px;
+  --nav-height: 60px;
+}
+
+/* ============================================================
+   RESET MÍNIMO
+   Apenas o necessário: sem opiniões extras sobre margin/padding.
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  color: var(--color-text-dark);
+  background: var(--color-bg-page);
+}
+
+/* --- Utilitário: fonte decorativa do logo ---
+   Aplicada via classe HTML para deixar o HTML semântico e
+   o estilo no CSS. */
+.font-logo {
+  font-family: var(--font-logo);
+}
+
+/* --- Utilitário: ocultar elemento ---
+   Definida UMA única vez aqui (estava duplicada com significados
+   opostos no agendamento.css — isso causava um bug de UI). */
+.hidden {
+  display: none;
+}
+
+/* ============================================================
+   NAVBAR
+   Componente fixo presente em TODAS as páginas. A estrutura
+   HTML é padronizada, eliminando as 3 variações que existiam.
+   ============================================================ */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: var(--nav-height);
+  background: rgba(63, 10, 74, 0.95);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  backdrop-filter: blur(8px);
+}
+
+.navbar-inner {
+  max-width: var(--max-width);
+  height: 100%;
+  margin: 0 auto;
+  padding: 0 var(--space-md);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+/* Bloco da marca/logo */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+.navbar-brand img {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+.navbar-brand span {
+  font-family: var(--font-logo);
+  font-size: 2rem;
+  color: var(--color-text-light);
+}
+
+/* Menu principal de navegação */
+.navbar-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.navbar-menu a {
+  text-decoration: none;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.navbar-menu a:hover {
+  color: var(--color-surface);
+}
+
+/* Botão CTA dentro do menu (ex: "Agende sua consulta") */
+.navbar-menu .btn-cta {
+  background: var(--color-brand);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  color: var(--color-surface);
+}
+
+.navbar-menu .btn-cta:hover {
+  background: var(--color-brand-hover);
+}
+
+/* Link "Voltar" usado nas páginas internas (login, sobre, etc.) */
+.navbar-back {
+  color: var(--color-surface);
+  text-decoration: none;
+  font-weight: 700;
+  background: var(--color-brand);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  transition: background 0.2s ease;
+}
+
+.navbar-back:hover {
+  background: var(--color-brand-hover);
+}
+
+/* ============================================================
+   FOOTER
+   Presente apenas no index.html, mas centralizado aqui para
+   facilitar reuso futuro em outras páginas.
+   ============================================================ */
+.footer {
+  background: var(--color-primary-dark);
+  color: var(--color-text-muted);
+  padding: 56px var(--space-md) 22px;
+}
+
+.footer-inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.footer h4 {
+  margin: 0 0 10px;
+  color: var(--color-surface);
+}
+
+.footer p,
+.footer a {
+  margin: 0 0 8px;
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  line-height: 1.55;
+  display: block;
+}
+
+.footer a:hover {
+  color: var(--color-surface);
+}
+
+.footer-bottom {
+  max-width: var(--max-width);
+  margin: 22px auto 0;
+  border-top: 1px solid rgba(243, 216, 251, 0.2);
+  padding-top: 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+  color: #dbb2eb;
+}
+
+/* ============================================================
+   RESPONSIVIDADE GLOBAL
+   ============================================================ */
+@media (max-width: 920px) {
+  /* Navbar empilha verticalmente em telas pequenas */
+  .navbar {
+    height: auto;
+  }
+
+  .navbar-inner {
+    flex-wrap: wrap;
+    padding: 10px var(--space-md);
+  }
+
+  .navbar-menu {
+    justify-content: flex-start;
+  }
+
+  /* Footer empilha as colunas em mobile */
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+}

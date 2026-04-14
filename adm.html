@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <!-- viewport estava ausente — essencial para layout correto em mobile -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo | Silvia Helena</title>
+    <!-- Estilos: global primeiro (tokens e componentes), depois específico do painel -->
+    <link rel="stylesheet" href="./css/global.css">
+    <link rel="stylesheet" href="./css/adm.css">
+</head>
+<body>
+
+    <!-- NAVBAR: estrutura padronizada, idêntica à das demais páginas -->
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a href="./index.html" class="navbar-brand">
+                <img src="./assets/logo_site_silvia.png" alt="Logo Silvia Helena">
+                <span class="font-logo">Silvia Helena</span>
+            </a>
+            <ul class="navbar-menu">
+                <li><a href="./index.html">Home</a></li>
+                <li><a href="./sobre-silvia.html">Sobre</a></li>
+                <li><a href="./tecnicas.html">Técnicas</a></li>
+                <li><a href="./agendamento.html" class="btn-cta">Ver Agendamentos</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="adm-wrapper">
+
+        <!-- Cabeçalho do painel -->
+        <div class="painel-intro">
+            <h1>Painel de Controle &mdash; <span class="font-logo">Silvia Helena</span></h1>
+            <p>Gerencie seus horários de atendimento de forma simples e rápida.</p>
+        </div>
+
+        <main class="adm-main">
+
+            <!-- Card 1: Seleção de data -->
+            <section class="card-adm">
+                <h3>1. Selecione o Dia</h3>
+                <input type="date" id="data-adm" class="input-moderno">
+                <p class="dica">Escolha o dia para o qual deseja abrir novos horários de atendimento.</p>
+            </section>
+
+            <!-- Card 2: Gerenciamento de horários -->
+            <section class="card-adm">
+                <h3>2. Horários Disponíveis</h3>
+
+                <div class="form-add">
+                    <input type="time" id="hora-adm" class="input-moderno" aria-label="Horário a abrir">
+                    <button onclick="salvarAgenda()" class="btn-add">Abrir Horário</button>
+                </div>
+
+                <div class="status-dia">
+                    <h4>Agenda para <span id="data-display">--/--</span>:</h4>
+                    <ul id="lista-horarios-adm" class="lista-clean"></ul>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- JS movido para js/ e refatorado (sem style inline, sem innerHTML em loop) -->
+    <script src="./js/adm.js"></script>
+
+</body>
+</html>
