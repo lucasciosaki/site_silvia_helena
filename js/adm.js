@@ -66,7 +66,7 @@ function excluirHorario(hora) {
 
     salvarAgendaCompleta(agendaCompleta);
     renderizarListaAdm();
-}
+}Site
 
 /* Cria o elemento <li> para um horário disponível
    Separado em função própria para não misturar criação de DOM
@@ -78,7 +78,7 @@ function criarItemHorario(hora) {
     span.textContent = hora;
 
     // Botão Remover: usa a classe .btn-remover definida em adm.css
-    // (não há mais style="" inline)
+    
     const btn = document.createElement('button');
     btn.className = 'btn-remover';
     btn.textContent = 'Remover';

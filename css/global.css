@@ -237,6 +237,18 @@ body {
     height: auto;
   }
 
+  .navbar-brand img {
+    height: 25px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .navbar-brand span {
+    font-family: var(--font-logo);
+    font-size: 1.4rem;
+    color: var(--color-text-light);
+}
+
   .navbar-inner {
     flex-wrap: wrap;
     padding: 10px var(--space-md);
@@ -244,7 +256,14 @@ body {
 
   .navbar-menu {
     justify-content: flex-start;
+    
   }
+
+  .navbar-menu a {
+  font-size: 0.65rem;
+  font-weight: 600;
+  
+}
 
   /* Footer empilha as colunas em mobile */
   .footer-inner {
