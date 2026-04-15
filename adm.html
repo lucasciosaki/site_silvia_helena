@@ -60,6 +60,89 @@
             </section>
 
         </main>
+        <section class="mapas-section">
+
+            <div class="mapas-header">
+                <div class="mapas-header-icon">
+                    <i class="fa-solid fa-star-of-david"></i>
+                </div>
+                <div class="mapas-header-text">
+                    <h2>Gestão de Mapas Pitagóricos</h2>
+                    <p>Envie o mapa numerológico diretamente ao cliente após a sessão de leitura.</p>
+                </div>
+            </div>
+
+            <div class="card-adm card-adm--mapa">
+                <h3>Enviar Mapa Pitagórico</h3>
+
+                <div class="mapas-form">
+
+                    <div class="campo-grupo">
+                        <label for="select-cliente" class="campo-label">
+                            <i class="fa-solid fa-user"></i> Cliente / Sessão
+                        </label>
+                        <select id="select-cliente" class="input-moderno">
+                            <option value="">Selecione o cliente...</option>
+                            <option value="ana_silva">Ana Silva — 14/04 às 09:00</option>
+                            <option value="carla_mendes">Carla Mendes — 14/04 às 11:00</option>
+                            <option value="fernanda_costa">Fernanda Costa — 15/04 às 10:00</option>
+                            <option value="juliana_ramos">Juliana Ramos — 15/04 às 14:00</option>
+                            <option value="lucia_ferreira">Lúcia Ferreira — 16/04 às 09:30</option>
+                            <option value="mariana_souza">Mariana Souza — 16/04 às 15:00</option>
+                            <option value="patricia_lima">Patrícia Lima — 17/04 às 11:00</option>
+                        </select>
+                        <p class="dica">Selecione o cliente para quem o mapa será enviado.</p>
+                    </div>
+
+                    <div class="campo-grupo">
+                        <label class="campo-label">
+                            <i class="fa-solid fa-image"></i> Arquivo do Mapa (.jpg, .png)
+                        </label>
+
+                        <div class="upload-area" id="upload-area">
+                            <input
+                                type="file"
+                                id="input-mapa"
+                                class="input-file-hidden"
+                                accept=".jpg,.jpeg,.png"
+                                aria-label="Selecionar imagem do mapa pitagórico"
+                            >
+                            <div class="btn-upload">
+                                <i class="fa-solid fa-cloud-arrow-up"></i>
+                                Escolher imagem
+                            </div>
+                            <p class="upload-hint">ou arraste e solte aqui</p>
+                        </div>
+
+                        <div id="preview-mapa" class="preview-mapa hidden">
+                            <img id="preview-img" src="" alt="Pré-visualização do mapa pitagórico">
+                            <div class="preview-info">
+                                <span id="preview-nome" class="preview-nome"></span>
+                                <span id="preview-tamanho" class="preview-tamanho"></span>
+                            </div>
+                            <button
+                                class="btn-limpar-preview"
+                                onclick="limparPreview()"
+                                aria-label="Remover imagem selecionada"
+                                title="Remover"
+                            >✕</button>
+                        </div>
+                    </div>
+
+                    <button onclick="enviarMapa()" class="btn-add btn-enviar-mapa">
+                        <i class="fa-solid fa-paper-plane"></i>
+                        Enviar Mapa ao Cliente
+                    </button>
+
+                    <div id="feedback-envio" class="feedback-envio hidden">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span id="feedback-mensagem"></span>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
     </div>
 
     

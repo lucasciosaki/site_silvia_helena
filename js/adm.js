@@ -124,3 +124,109 @@ document.getElementById('data-adm').addEventListener('change', renderizarListaAd
 
 /* Listener: botão "Abrir Horário" via atributo onclick no HTML
    A função salvarAgenda() é chamada pelo onclick do HTML. */
+
+
+const inputMapa    = document.getElementById('input-mapa');
+const uploadArea   = document.getElementById('upload-area');
+const previewMapa  = document.getElementById('preview-mapa');
+const previewImg   = document.getElementById('preview-img');
+const previewNome  = document.getElementById('preview-nome');
+const previewTam   = document.getElementById('preview-tamanho');
+const feedbackDiv  = document.getElementById('feedback-envio');
+const feedbackMsg  = document.getElementById('feedback-mensagem');
+
+function formatarTamanho(bytes) {
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+}
+
+function exibirPreview(arquivo) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        previewImg.src = e.target.result;
+        previewNome.textContent = arquivo.name;
+        previewTam.textContent  = formatarTamanho(arquivo.size);
+        previewMapa.classList.remove('hidden');
+    };
+
+    reader.readAsDataURL(arquivo);
+}
+
+function limparPreview() {
+    inputMapa.value = '';
+    previewImg.src  = '';
+    previewNome.textContent = '';
+    previewTam.textContent  = '';
+    previewMapa.classList.add('hidden');
+}
+
+inputMapa.addEventListener('change', function () {
+    const arquivo = this.files[0];
+    if (arquivo) exibirPreview(arquivo);
+});
+
+uploadArea.addEventListener('dragover', function (e) {
+    e.preventDefault();
+    this.classList.add('drag-over');
+});
+
+uploadArea.addEventListener('dragleave', function () {
+    this.classList.remove('drag-over');
+});
+
+uploadArea.addEventListener('drop', function (e) {
+    e.preventDefault();
+    this.classList.remove('drag-over');
+
+    const arquivo = e.dataTransfer.files[0];
+    if (!arquivo) return;
+
+    const tiposPermitidos = ['image/jpeg', 'image/png'];
+    if (!tiposPermitidos.includes(arquivo.type)) {
+        alert('Tipo de arquivo não suportado. Use .jpg ou .png.');
+        return;
+    }
+
+    const dataTransfer = new DataTransfer();
+    dataTransfer.items.add(arquivo);
+    inputMapa.files = dataTransfer.files;
+
+    exibirPreview(arquivo);
+});
+
+function enviarMapa() {
+    const selectCliente = document.getElementById('select-cliente');
+    const arquivo       = inputMapa.files[0];
+
+    if (!selectCliente.value) {
+        alert('Por favor, selecione um cliente antes de enviar.');
+        return;
+    }
+
+    if (!arquivo) {
+        alert('Por favor, selecione uma imagem do mapa pitagórico.');
+        return;
+    }
+
+    const nomeCliente = selectCliente.options[selectCliente.selectedIndex].text;
+
+    console.log('╔══ ENVIO DE MAPA PITAGÓRICO ══╗');
+    console.log('  Cliente :', nomeCliente);
+    console.log('  Arquivo :', arquivo.name);
+    console.log('  Tamanho :', formatarTamanho(arquivo.size));
+    console.log('  Tipo    :', arquivo.type);
+    console.log('╚══════════════════════════════╝');
+
+    mostrarFeedbackEnvio(nomeCliente, arquivo.name);
+}
+
+function mostrarFeedbackEnvio(nomeCliente, nomeArquivo) {
+    feedbackMsg.textContent = `Mapa "${nomeArquivo}" enviado com sucesso para ${nomeCliente}!`;
+    feedbackDiv.classList.remove('hidden');
+
+    document.getElementById('select-cliente').value = '';
+    limparPreview();
+
+    setTimeout(() => feedbackDiv.classList.add('hidden'), 6000);
+}
