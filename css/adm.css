@@ -1,9 +1,7 @@
-/* ============================================================
+/* 
    ADM.CSS
    Estilos exclusivos do painel administrativo (adm.html).
-   Depende dos tokens definidos em global.css — nenhuma cor ou
-   fonte é redefinida aqui, apenas consumida.
-   ============================================================ */
+*/
 
 /* Fundo gradiente escuro que dá identidade "área restrita" ao painel */
 body {
@@ -12,9 +10,7 @@ body {
   color: var(--color-text-dark);
 }
 
-/* ============================================================
-   WRAPPER PRINCIPAL
-   ============================================================ */
+/* WRAPPER PRINCIPAL */
 .adm-wrapper {
   max-width: 900px;
   margin: 0 auto;
@@ -22,7 +18,7 @@ body {
   padding: calc(var(--nav-height) + 40px) var(--space-md) 60px;
 }
 
-/* --- Cabeçalho de boas-vindas --- */
+/* Cabeçalho de boas-vindas */
 .painel-intro {
   text-align: center;
   margin-bottom: 40px;
@@ -48,9 +44,7 @@ body {
   margin: 0;
 }
 
-/* ============================================================
-   GRID DE CARDS DO PAINEL
-   ============================================================ */
+/* GRID DE CARDS DO PAINEL */
 .adm-main {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -78,9 +72,7 @@ body {
   padding-bottom: 10px;
 }
 
-/* ============================================================
-   INPUTS
-   ============================================================ */
+/* INPUTS */
 .input-moderno {
   width: 100%;
   padding: 12px 14px;
@@ -105,9 +97,7 @@ body {
   color: #9ca3af;
 }
 
-/* ============================================================
-   FORM DE ADICIONAR HORÁRIO
-   ============================================================ */
+/* FORM DE ADICIONAR HORÁRIO */
 .form-add {
   display: flex;
   gap: 10px;
@@ -141,9 +131,7 @@ body {
   transform: translateY(0);
 }
 
-/* ============================================================
-   LISTA DE HORÁRIOS
-   ============================================================ */
+/*  LISTA DE HORÁRIOS */
 .status-dia h4 {
   margin: 0 0 12px;
   font-size: 0.92rem;
@@ -183,8 +171,7 @@ body {
   font-style: italic;
 }
 
-/* Botão de remover — estilo extraído do atributo style="" inline
-   que existia no script original */
+/* Botão de remover*/
 .btn-remover {
   background: none;
   border: 1px solid transparent;
@@ -203,9 +190,7 @@ body {
   color: var(--color-accent-hover);
 }
 
-/* ============================================================
-   RESPONSIVIDADE
-   ============================================================ */
+/* RESPONSIVIDADE*/
 @media (max-width: 760px) {
   .adm-main {
     grid-template-columns: 1fr;

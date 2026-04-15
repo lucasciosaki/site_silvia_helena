@@ -1,12 +1,10 @@
-/* ============================================================
+/*
    GLOBAL.CSS
-   Fonte única da verdade: tokens de design, reset, navbar e
+   Tokens de design, reset, navbar e
    footer. Importado por TODAS as páginas do site.
-   ============================================================ */
+*/
 
-/* --- Fonte decorativa (logo/títulos) ---
-   Declarada aqui uma única vez para eliminar a duplicação que
-   existia em style.css e agendamento.css. */
+/* Fonte decorativa (logo/títulos) */
 @font-face {
   font-family: 'DancingScript-Regular';
   src: url('../fonts/DancingScript-Regular.woff2') format('woff2'),
@@ -17,11 +15,9 @@
   font-style: normal;
 }
 
-/* ============================================================
+/*
    TOKENS DE DESIGN
-   Centralizados aqui para que qualquer ajuste de cor, fonte ou
-   espaçamento reflita automaticamente em todo o site.
-   ============================================================ */
+*/
 :root {
   /* Paleta principal */
   --color-primary:      #3f0a4a;  /* roxo escuro — navbar, elementos base */
@@ -62,10 +58,10 @@
   --nav-height: 60px;
 }
 
-/* ============================================================
+/*
    RESET MÍNIMO
-   Apenas o necessário: sem opiniões extras sobre margin/padding.
-   ============================================================ */
+   
+*/
 *, *::before, *::after {
   box-sizing: border-box;
 }
@@ -81,25 +77,17 @@ body {
   background: var(--color-bg-page);
 }
 
-/* --- Utilitário: fonte decorativa do logo ---
-   Aplicada via classe HTML para deixar o HTML semântico e
-   o estilo no CSS. */
+/* Utilitário: fonte decorativa do logo*/
 .font-logo {
   font-family: var(--font-logo);
 }
 
-/* --- Utilitário: ocultar elemento ---
-   Definida UMA única vez aqui (estava duplicada com significados
-   opostos no agendamento.css — isso causava um bug de UI). */
+/* Utilitário: ocultar elemento*/
 .hidden {
   display: none;
 }
 
-/* ============================================================
-   NAVBAR
-   Componente fixo presente em TODAS as páginas. A estrutura
-   HTML é padronizada, eliminando as 3 variações que existiam.
-   ============================================================ */
+/*NAVBAR*/
 .navbar {
   position: fixed;
   top: 0;
@@ -193,11 +181,7 @@ body {
   background: var(--color-brand-hover);
 }
 
-/* ============================================================
-   FOOTER
-   Presente apenas no index.html, mas centralizado aqui para
-   facilitar reuso futuro em outras páginas.
-   ============================================================ */
+/*FOOTER*/
 .footer {
   background: var(--color-primary-dark);
   color: var(--color-text-muted);
@@ -244,9 +228,9 @@ body {
   color: #dbb2eb;
 }
 
-/* ============================================================
+/*
    RESPONSIVIDADE GLOBAL
-   ============================================================ */
+   */
 @media (max-width: 920px) {
   /* Navbar empilha verticalmente em telas pequenas */
   .navbar {

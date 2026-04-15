@@ -1,27 +1,22 @@
-/* ============================================================
+/*
    ADM.JS — Painel Administrativo de Agenda
    Gerencia a abertura e remoção de horários disponíveis para
    os pacientes. Os dados são persistidos em localStorage com
    a chave 'banco_agenda', compartilhada com agendamento.js.
+*/
 
-   Melhorias em relação ao script-adm.js original:
-   - Removido style="" inline do botão Remover (agora usa .btn-remover)
-   - Substituído innerHTML += por createElement (mais seguro e eficiente)
-   - Lógica extraída em funções menores com responsabilidade única
-   ============================================================ */
-
-/* --- Lê a agenda do dia selecionado no localStorage --- */
+/* Lê a agenda do dia selecionado no localStorage */
 function lerAgendaDoDia(data) {
     const agendaCompleta = JSON.parse(localStorage.getItem('banco_agenda')) || {};
     return agendaCompleta[data] || [];
 }
 
-/* --- Persiste a agenda completa no localStorage --- */
+/* Persiste a agenda completa no localStorage */
 function salvarAgendaCompleta(agendaCompleta) {
     localStorage.setItem('banco_agenda', JSON.stringify(agendaCompleta));
 }
 
-/* --- Abre um novo horário para o dia selecionado --- */
+/* Abre um novo horário para o dia selecionado */
 function salvarAgenda() {
     const data = document.getElementById('data-adm').value;
     const hora = document.getElementById('hora-adm').value;
@@ -53,7 +48,7 @@ function salvarAgenda() {
     renderizarListaAdm();
 }
 
-/* --- Remove um horário específico do dia selecionado ---
+/* Remove um horário específico do dia selecionado
    A remoção é feita sem recarregar a página: apenas atualiza
    o DOM e o localStorage. */
 function excluirHorario(hora) {
@@ -73,7 +68,7 @@ function excluirHorario(hora) {
     renderizarListaAdm();
 }
 
-/* --- Cria o elemento <li> para um horário disponível ---
+/* Cria o elemento <li> para um horário disponível
    Separado em função própria para não misturar criação de DOM
    com lógica de renderização. */
 function criarItemHorario(hora) {
@@ -95,7 +90,7 @@ function criarItemHorario(hora) {
     return li;
 }
 
-/* --- Atualiza a lista visual de horários do dia selecionado --- */
+/* Atualiza a lista visual de horários do dia selecionado */
 function renderizarListaAdm() {
     const data = document.getElementById('data-adm').value;
     const lista = document.getElementById('lista-horarios-adm');
@@ -124,8 +119,8 @@ function renderizarListaAdm() {
     });
 }
 
-/* --- Listener: atualiza a lista sempre que a data muda --- */
+/* Listener: atualiza a lista sempre que a data muda */
 document.getElementById('data-adm').addEventListener('change', renderizarListaAdm);
 
-/* --- Listener: botão "Abrir Horário" via atributo onclick no HTML ---
+/* Listener: botão "Abrir Horário" via atributo onclick no HTML
    A função salvarAgenda() é chamada pelo onclick do HTML. */

@@ -1,9 +1,7 @@
-/* ============================================================
+/* 
    AGENDAMENTO.JS
    Lógica do calendário e do fluxo de agendamento.
-   Os nomes de classe foram atualizados para o padrão BEM
-   definido em agendamento.css (ex: 'dia--selecionado').
-   ============================================================ */
+*/
 
 let dataAtual = new Date();
 
@@ -20,7 +18,7 @@ window.addEventListener('scroll', function () {
     }
 });
 
-/* --- Renderiza o calendário do mês atual --- */
+/* Renderiza o calendário do mês atual */
 function renderizarCalendario() {
     const diasGrid = document.getElementById('dias-grid');
     const mesAnoTexto = document.getElementById('mes-ano-texto');
@@ -41,7 +39,7 @@ function renderizarCalendario() {
     // Células vazias para alinhar o primeiro dia na coluna correta
     for (let i = 0; i < primeiroDiaSemana; i++) {
         const vazio = document.createElement('div');
-        vazio.className = 'dia dia--vazio'; // BEM: elemento + modificador
+        vazio.className = 'dia dia--vazio';
         diasGrid.appendChild(vazio);
     }
 
@@ -54,11 +52,11 @@ function renderizarCalendario() {
     }
 }
 
-/* --- Marca o dia clicado e exibe os horários disponíveis --- */
+/* Marca o dia clicado e exibe os horários disponíveis */
 function selecionarDia(dia, mes, ano) {
     // Remove seleção anterior
     document.querySelectorAll('.dia').forEach(d => d.classList.remove('dia--selecionado'));
-    event.target.classList.add('dia--selecionado'); // BEM: modificador de estado
+    event.target.classList.add('dia--selecionado'); 
 
     const diaFormatado = String(dia).padStart(2, '0');
     const mesFormatado = String(mes + 1).padStart(2, '0');
@@ -67,7 +65,7 @@ function selecionarDia(dia, mes, ano) {
     atualizarPainelHorarios(dataChave, dia, mes + 1);
 }
 
-/* --- Atualiza o painel lateral com os horários do dia selecionado --- */
+/* Atualiza o painel lateral com os horários do dia selecionado */
 function atualizarPainelHorarios(dataChave, dia, mes) {
     const container = document.getElementById('lista-botoes-horas');
     const painel = document.getElementById('painel-horarios');
@@ -91,7 +89,7 @@ function atualizarPainelHorarios(dataChave, dia, mes) {
 
                 // Remove seleção anterior dos botões de hora
                 document.querySelectorAll('.btn-hora').forEach(b => b.classList.remove('btn-hora--selecionado'));
-                btn.classList.add('btn-hora--selecionado'); // BEM: modificador de estado
+                btn.classList.add('btn-hora--selecionado');
 
                 confirmarBox.classList.remove('hidden');
             };
@@ -120,7 +118,7 @@ document.getElementById('next-mes').onclick = () => {
 // Inicializa o calendário ao carregar a página
 renderizarCalendario();
 
-/* --- Confirma o agendamento ao clicar em "Finalizar" --- */
+/* Confirma o agendamento ao clicar em "Finalizar" */
 document.getElementById('btn-final').onclick = function () {
     const nome = 'Paciente';
     const { dataChave, hora, dia, mes } = selecaoTemporaria;
@@ -146,7 +144,7 @@ document.getElementById('btn-final').onclick = function () {
     renderizarAgendamentosMarcados();
 };
 
-/* --- Renderiza a lista de todos os agendamentos confirmados --- */
+/* Renderiza a lista de todos os agendamentos confirmados */
 function renderizarAgendamentosMarcados() {
     const listaUI = document.getElementById('lista-agendamentos');
     listaUI.innerHTML = '';

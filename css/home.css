@@ -1,8 +1,8 @@
-/* ============================================================
+/* 
    HOME.CSS
    Estilos exclusivos da página inicial (index.html).
    Depende dos tokens definidos em global.css.
-   ============================================================ */
+  */
 
 /* --- Seção Hero --- */
 .hero {
@@ -12,7 +12,7 @@
   place-items: center;
   text-align: center;
   color: var(--color-text-light);
-  /* padding-top compensa a navbar fixa (60px) + respiro adicional */
+  
   padding: calc(var(--nav-height) + 60px) var(--space-md) var(--space-xl);
   overflow: hidden;
 }
@@ -39,14 +39,13 @@
   );
 }
 
-/* z-index 2 para ficar acima do overlay (::after) */
 .hero-content {
   position: relative;
   z-index: 2;
   max-width: 980px;
 }
 
-/* clamp() cria tipografia fluida sem media queries extras */
+
 .hero-content h2 {
   font-size: clamp(1.7rem, 4.5vw, 3.6rem);
   text-transform: uppercase;
@@ -68,7 +67,7 @@
   line-height: 1.7;
 }
 
-/* Destaque de informação (ex: duração da sessão) dentro do hero */
+
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -106,9 +105,9 @@
   transform: translateY(-2px);
 }
 
-/* ============================================================
+/* 
    SEÇÕES PADRÃO (Terapia, Sobre, Técnicas)
-   ============================================================ */
+   */
 .section {
   padding: 86px var(--space-md);
 }
@@ -122,7 +121,7 @@
   align-items: center;
 }
 
-/* Card colorido (lado esquerdo ou direito) */
+/* Card colorido  */
 .section-card {
   border-radius: var(--radius-lg);
   padding: 32px;
@@ -168,7 +167,7 @@
   margin-bottom: var(--space-sm);
 }
 
-/* --- Variações de tema por seção (modificadores BEM) --- */
+/*Variações de tema por seção*/
 .section--therapy {
   background: #fff1e6;
 }
@@ -209,10 +208,10 @@
   color: #4c1d95;
 }
 
-/* ============================================================
+/*
    GRID DE SERVIÇOS
    Seção escura com cards glassmorphism para listar as técnicas.
-   ============================================================ */
+*/
 .section--services {
   background: var(--color-primary);
   padding: 86px var(--space-md);
@@ -289,9 +288,9 @@
   margin: 0;
 }
 
-/* ============================================================
+/* 
    SEÇÃO: COMO FUNCIONA A SESSÃO
-   ============================================================ */
+*/
 .section--session {
   background: #faf5ff;
   padding: 86px var(--space-md);
@@ -370,9 +369,9 @@
   color: var(--color-brand-hover);
 }
 
-/* ============================================================
+/* 
    SEÇÃO CTA DE AGENDAMENTO
-   ============================================================ */
+*/
 .cta-agenda {
   background: linear-gradient(135deg, #fca5a5, #f87171);
   padding: 86px var(--space-md);
@@ -445,9 +444,9 @@
   opacity: 0.75;
 }
 
-/* ============================================================
+/* 
    RESPONSIVIDADE
-   ============================================================ */
+   */
 @media (max-width: 920px) {
   .section-inner {
     grid-template-columns: 1fr;

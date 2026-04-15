@@ -1,15 +1,13 @@
-/* ============================================================
+/* 
    PAGINA-INTERNA.CSS
-   Layout compartilhado pelas páginas de conteúdo:
-   sobre-silvia.html, tecnicas.html, terapia-multidimensional.html
-   ============================================================ */
+*/
 
 body {
   min-height: 100vh;
   color: var(--color-text-light);
 }
 
-/* Gradientes temáticos — um por página, aplicado via classe no <body> */
+/* Gradientes */
 body.pagina--sobre {
   background: linear-gradient(160deg, #831843 0%, #4a044e 55%, #1e1b4b 100%);
 }
@@ -22,9 +20,7 @@ body.pagina--terapia {
   background: linear-gradient(160deg, #7c2d12 0%, #4a044e 55%, #3b0764 100%);
 }
 
-/* ============================================================
-   CONTAINER PRINCIPAL
-   ============================================================ */
+/* CONTAINER PRINCIPAL*/
 .container {
   max-width: 940px;
   margin: 0 auto;
@@ -32,7 +28,7 @@ body.pagina--terapia {
   padding: calc(var(--nav-height) + 40px) var(--space-md) 60px;
 }
 
-/* Link "← Voltar" acima do card */
+/* Link "Voltar" acima do card */
 .back-link {
   display: inline-flex;
   align-items: center;
@@ -49,9 +45,7 @@ body.pagina--terapia {
   color: var(--color-surface);
 }
 
-/* ============================================================
-   CARD DE CONTEÚDO PRINCIPAL
-   ============================================================ */
+/* CARD DE CONTEÚDO PRINCIPAL*/
 .content-card {
   background: rgba(30, 6, 40, 0.78);
   border: 1px solid rgba(255, 255, 255, 0.14);
@@ -99,9 +93,7 @@ body.pagina--terapia {
   font-weight: 700;
 }
 
-/* ============================================================
-   COMPONENTES INTERNOS
-   ============================================================ */
+/* COMPONENTES INTERNOS*/
 
 /* Grid de formação / timeline */
 .formacao-grid {
@@ -135,7 +127,7 @@ body.pagina--terapia {
   color: var(--color-text-light);
 }
 
-/* Cards de técnica (usados em tecnicas.html) */
+/* Cards de técnica */
 .tecnica-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -189,7 +181,7 @@ body.pagina--terapia {
 .tecnica-card .beneficios {
   margin: 10px 0 0;
   font-size: 0.88rem;
-  color: #c084fc; /* lilás claro para os benefícios — destaque sutil */
+  color: #c084fc;
   font-style: italic;
 }
 
@@ -237,9 +229,9 @@ body.pagina--terapia {
   transform: translateY(-2px);
 }
 
-/* ============================================================
+/* 
    RESPONSIVIDADE
-   ============================================================ */
+    */
 @media (max-width: 700px) {
   .content-card {
     padding: var(--space-lg);

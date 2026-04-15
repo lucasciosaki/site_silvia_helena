@@ -1,15 +1,11 @@
-/* ============================================================
-   AGENDAMENTO.CSS
-   Estilos exclusivos da página de agendamento (agendamento.html).
-   Depende dos tokens definidos em global.css.
-   ============================================================ */
+
 
 body {
   background: var(--color-bg-page);
   color: var(--color-text-dark);
 }
 
-/* --- Hero da página de agendamento --- */
+/* Hero da página de agendamento */
 .hero {
   /* padding-top compensa a navbar fixa */
   padding-top: var(--nav-height);
@@ -58,9 +54,7 @@ body {
   background: var(--color-accent-hover);
 }
 
-/* ============================================================
-   ÁREA DE AGENDAMENTO — Calendário e painel de horários
-   ============================================================ */
+/* ÁREA DE AGENDAMENTO — Calendário e painel de horários*/
 .agendamento-completo {
   display: flex;
   flex-wrap: wrap;
@@ -102,7 +96,7 @@ body {
 
 /* Célula de dia */
 .dia {
-  padding: 15px 5px;
+  padding: 15px 15px;
   cursor: pointer;
   border-radius: 50%;
   transition: background 0.2s ease, color 0.2s ease;
@@ -127,7 +121,7 @@ body {
   cursor: default;
 }
 
-/* --- Painel de horários disponíveis --- */
+/* Painel de horários disponíveis */
 .grid-botoes-horas {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -135,9 +129,7 @@ body {
   margin-top: 20px;
 }
 
-/* Botão de horário individual
-   ATENÇÃO: estava definido 2x com estilos conflitantes no arquivo
-   original. Unificado aqui em uma única regra. */
+/* Botão de horário individual*/
 .btn-hora {
   padding: 15px;
   border: 2px solid var(--color-brand);
@@ -188,9 +180,7 @@ body {
   transform: scale(1.05);
 }
 
-/* ============================================================
-   LISTA DE AGENDAMENTOS CONFIRMADOS
-   ============================================================ */
+/* LISTA DE AGENDAMENTOS CONFIRMADOS */
 .agendamentos-marcados {
   max-width: 800px;
   background: var(--color-surface);
