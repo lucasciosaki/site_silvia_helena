@@ -252,10 +252,12 @@ body {
   .navbar-inner {
     flex-wrap: wrap;
     padding: 10px var(--space-md);
+    
   }
 
   .navbar-menu {
-    justify-content: flex-start;
+    width: 100%;
+    justify-content:space-around;
     
   }
 
