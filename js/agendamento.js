@@ -1,14 +1,13 @@
-/* 
-   AGENDAMENTO.JS
-   Lógica do calendário e do fluxo de agendamento.
-*/
-
 let dataAtual = new Date();
+let selecaoTemporaria = { dataChave: null, hora: null, horarioId: null, dia: null, mes: null };
 
-// Armazena temporariamente a seleção do usuário antes de confirmar
-let selecaoTemporaria = { dataChave: null, hora: null, dia: null, mes: null };
+const token = localStorage.getItem('token')
 
-// Scroll suave: navbar muda de opacidade ao rolar a página
+// redireciona pra login se não estiver logado
+if (!token) {
+    window.location.href = './login.html'
+}
+
 window.addEventListener('scroll', function () {
     const navbar = document.querySelector('.navbar');
     if (window.scrollY > 30) {
@@ -18,7 +17,6 @@ window.addEventListener('scroll', function () {
     }
 });
 
-/* Renderiza o calendário do mês atual */
 function renderizarCalendario() {
     const diasGrid = document.getElementById('dias-grid');
     const mesAnoTexto = document.getElementById('mes-ano-texto');
@@ -36,7 +34,6 @@ function renderizarCalendario() {
     const primeiroDiaSemana = new Date(ano, mes, 1).getDay();
     const ultimoDiaMes = new Date(ano, mes + 1, 0).getDate();
 
-    // Células vazias para alinhar o primeiro dia na coluna correta
     for (let i = 0; i < primeiroDiaSemana; i++) {
         const vazio = document.createElement('div');
         vazio.className = 'dia dia--vazio';
@@ -52,11 +49,9 @@ function renderizarCalendario() {
     }
 }
 
-/* Marca o dia clicado e exibe os horários disponíveis */
 function selecionarDia(dia, mes, ano) {
-    // Remove seleção anterior
     document.querySelectorAll('.dia').forEach(d => d.classList.remove('dia--selecionado'));
-    event.target.classList.add('dia--selecionado'); 
+    event.target.classList.add('dia--selecionado');
 
     const diaFormatado = String(dia).padStart(2, '0');
     const mesFormatado = String(mes + 1).padStart(2, '0');
@@ -65,46 +60,55 @@ function selecionarDia(dia, mes, ano) {
     atualizarPainelHorarios(dataChave, dia, mes + 1);
 }
 
-/* Atualiza o painel lateral com os horários do dia selecionado */
-function atualizarPainelHorarios(dataChave, dia, mes) {
+async function atualizarPainelHorarios(dataChave, dia, mes) {
     const container = document.getElementById('lista-botoes-horas');
     const painel = document.getElementById('painel-horarios');
     const display = document.getElementById('dia-selecionado');
     const confirmarBox = document.getElementById('confirmar-box');
 
-    container.innerHTML = '';
+    container.innerHTML = '<p>Carregando horários...</p>';
     confirmarBox.classList.add('hidden');
-
-    const agendaCompleta = JSON.parse(localStorage.getItem('banco_agenda')) || {};
-    const horariosDisponiveis = agendaCompleta[dataChave];
-
-    if (horariosDisponiveis && horariosDisponiveis.length > 0) {
-        horariosDisponiveis.forEach(hora => {
-            const btn = document.createElement('button');
-            btn.className = 'btn-hora';
-            btn.innerText = hora;
-
-            btn.onclick = () => {
-                selecaoTemporaria = { dataChave, hora, dia, mes };
-
-                // Remove seleção anterior dos botões de hora
-                document.querySelectorAll('.btn-hora').forEach(b => b.classList.remove('btn-hora--selecionado'));
-                btn.classList.add('btn-hora--selecionado');
-
-                confirmarBox.classList.remove('hidden');
-            };
-
-            container.appendChild(btn);
-        });
-    } else {
-        container.innerHTML = '<p>Nenhum horário aberto pela terapeuta para este dia.</p>';
-    }
-
     painel.classList.remove('hidden');
     display.innerText = `${dia}/${mes}`;
+
+    try {
+        const res = await fetch(`/api/agenda/${dataChave}`)
+        const horarios = await res.json()
+
+        container.innerHTML = ''
+
+        if (horarios.length === 0) {
+            container.innerHTML = '<p>Nenhum horário aberto pela terapeuta para este dia.</p>'
+            return
+        }
+
+        horarios.forEach(horario => {
+            const btn = document.createElement('button')
+            btn.className = 'btn-hora'
+            btn.innerText = horario.hora.slice(0, 5) // exibe só HH:MM
+
+            btn.onclick = () => {
+                selecaoTemporaria = {
+                    dataChave,
+                    hora: horario.hora.slice(0, 5),
+                    horarioId: horario.id,
+                    dia,
+                    mes
+                }
+
+                document.querySelectorAll('.btn-hora').forEach(b => b.classList.remove('btn-hora--selecionado'))
+                btn.classList.add('btn-hora--selecionado')
+                confirmarBox.classList.remove('hidden')
+            }
+
+            container.appendChild(btn)
+        })
+
+    } catch (err) {
+        container.innerHTML = '<p>Erro ao carregar horários.</p>'
+    }
 }
 
-// Navegação entre meses
 document.getElementById('prev-mes').onclick = () => {
     dataAtual.setMonth(dataAtual.getMonth() - 1);
     renderizarCalendario();
@@ -115,53 +119,69 @@ document.getElementById('next-mes').onclick = () => {
     renderizarCalendario();
 };
 
-// Inicializa o calendário ao carregar a página
 renderizarCalendario();
 
-/* Confirma o agendamento ao clicar em "Finalizar" */
-document.getElementById('btn-final').onclick = function () {
-    const nome = 'Paciente';
-    const { dataChave, hora, dia, mes } = selecaoTemporaria;
+document.getElementById('btn-final').onclick = async function () {
+    const { horarioId, hora, dia, mes } = selecaoTemporaria
 
-    // Salva o agendamento confirmado
-    const agendamentos = JSON.parse(localStorage.getItem('banco_agendamentos')) || {};
-    if (!agendamentos[dataChave]) agendamentos[dataChave] = [];
-    agendamentos[dataChave].push({ hora, cliente: nome });
-    localStorage.setItem('banco_agendamentos', JSON.stringify(agendamentos));
+    try {
+        const res = await fetch('/api/agenda/reservar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({ horarioId })
+        })
 
-    // Remove o horário da agenda disponível
-    const agenda = JSON.parse(localStorage.getItem('banco_agenda')) || {};
-    if (agenda[dataChave]) {
-        agenda[dataChave] = agenda[dataChave].filter(h => h !== hora);
-        localStorage.setItem('banco_agenda', JSON.stringify(agenda));
-    }
+        const data = await res.json()
 
-    alert(`Sucesso! Horário das ${hora} reservado.`);
+        if (!res.ok) {
+            alert(data.erro || 'Erro ao reservar.')
+            return
+        }
 
-    document.getElementById('confirmar-box').classList.add('hidden');
-    document.getElementById('painel-horarios').classList.add('hidden');
-    renderizarCalendario();
-    renderizarAgendamentosMarcados();
-};
+        alert(`Sucesso! Horário das ${hora} reservado.`)
 
-/* Renderiza a lista de todos os agendamentos confirmados */
-function renderizarAgendamentosMarcados() {
-    const listaUI = document.getElementById('lista-agendamentos');
-    listaUI.innerHTML = '';
+        document.getElementById('confirmar-box').classList.add('hidden')
+        document.getElementById('painel-horarios').classList.add('hidden')
+        renderizarCalendario()
+        renderizarAgendamentosMarcados()
 
-    const marcados = JSON.parse(localStorage.getItem('banco_agendamentos')) || {};
-
-    for (const data in marcados) {
-        marcados[data].forEach(item => {
-            const dataFormatada = data.split('-').reverse().slice(0, 2).join('/');
-
-            const card = document.createElement('div');
-            card.className = 'agendamento-card'; // classe renomeada de 'confirmar-box'
-            card.innerHTML = `<span><strong>${dataFormatada} às ${item.hora}</strong> - ${item.cliente}</span>`;
-            listaUI.appendChild(card);
-        });
+    } catch (err) {
+        alert('Erro de conexão com o servidor.')
     }
 }
 
-// Carrega agendamentos ao abrir a página
-window.onload = renderizarAgendamentosMarcados;
+async function renderizarAgendamentosMarcados() {
+    const listaUI = document.getElementById('lista-agendamentos')
+    listaUI.innerHTML = ''
+
+    try {
+        const res = await fetch('/api/adm/agendamentos', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        })
+
+        const agendamentos = await res.json()
+
+        if (!agendamentos.length) {
+            listaUI.innerHTML = '<p>Nenhum agendamento ainda.</p>'
+            return
+        }
+
+        agendamentos.forEach(item => {
+            const data = item.Horario.data.split('-').reverse().slice(0, 2).join('/')
+            const hora = item.Horario.hora.slice(0, 5)
+
+            const card = document.createElement('div')
+            card.className = 'agendamento-card'
+            card.innerHTML = `<span><strong>${data} às ${hora}</strong></span>`
+            listaUI.appendChild(card)
+        })
+
+    } catch (err) {
+        listaUI.innerHTML = '<p>Erro ao carregar agendamentos.</p>'
+    }
+}
+
+window.onload = renderizarAgendamentosMarcados
