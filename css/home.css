@@ -448,6 +448,12 @@
    RESPONSIVIDADE
    */
 @media (max-width: 920px) {
+
+  .hero-bg {
+    height: 100%;
+    object-fit:cover;
+  }
+
   .section-inner {
     grid-template-columns: 1fr;
   }

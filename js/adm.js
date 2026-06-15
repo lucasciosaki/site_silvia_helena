@@ -121,7 +121,40 @@ async function renderizarListaAdm() {
 
 // ─── MAPA PITAGÓRICO ──────────────────────────────────────
 
+const selectCliente = document.getElementById('select-cliente')
 const inputMapa   = document.getElementById('input-mapa')
+// ... rest of selectors
+
+async function carregarClientes() {
+    if (!selectCliente) return
+
+    try {
+        const res = await fetch('/api/adm/usuarios', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        })
+
+        if (!res.ok) return
+
+        const usuarios = await res.json()
+        
+        // Mantém apenas a primeira opção (vazia) e adiciona os usuários
+        selectCliente.innerHTML = '<option value="">Selecione o cliente...</option>'
+        
+        usuarios.forEach(u => {
+            const opt = document.createElement('option')
+            opt.value = u.email
+            opt.textContent = `${u.nome} (${u.email})`
+            selectCliente.appendChild(opt)
+        })
+
+    } catch (err) {
+        console.error('Erro ao carregar clientes:', err)
+    }
+}
+
+// Carrega a lista ao abrir a página
+carregarClientes()
+
 const uploadArea  = document.getElementById('upload-area')
 const previewMapa = document.getElementById('preview-mapa')
 const previewImg  = document.getElementById('preview-img')

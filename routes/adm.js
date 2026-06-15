@@ -110,6 +110,19 @@ router.post('/mapa', autenticar, apenasAdmin, upload.single('mapa'), async (req,
     }
 })
 
+// GET /api/adm/usuarios — lista todos os usuários cadastrados (para o select do mapa)
+router.get('/usuarios', autenticar, apenasAdmin, async (req, res) => {
+    try {
+        const usuarios = await Usuario.findAll({
+            attributes: ['nome', 'email'],
+            order: [['nome', 'ASC']]
+        })
+        res.json(usuarios)
+    } catch (err) {
+        res.status(500).json({ erro: 'Erro ao buscar usuários.', detalhe: err.message })
+    }
+})
+
 // GET /api/adm/horarios/:data — lista todos os horários de um dia (admin)
 router.get('/horarios/:data', autenticar, apenasAdmin, async (req, res) => {
     try {
