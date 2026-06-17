@@ -27,14 +27,17 @@ const admRoutes    = require('./routes/adm')
 
 const app = express()
 
-console.log('--- INICIANDO SERVIDOR ---')
-console.log('DATABASE_URL presente:', !!process.env.DATABASE_URL)
-console.log('JWT_SECRET presente:', !!process.env.JWT_SECRET)
-
+// Middleware
 app.use(cors())
 app.use(express.json())
 
-// serve os arquivos estáticos (seus HTMLs, CSS, JS)
+// Log de depuração básico (aparecerá nos logs da Vercel)
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`)
+    next()
+})
+
+// serve os arquivos estáticos (HTML, CSS, JS)
 app.use(express.static(path.join(__dirname)))
 
 // rotas da API
@@ -42,20 +45,25 @@ app.use('/api/auth',   authRoutes)
 app.use('/api/agenda', agendaRoutes)
 app.use('/api/adm',    admRoutes)
 
-// sincroniza os models com o banco e sobe o servidor
-const PORT = process.env.PORT || 3000
+// Rota de health-check para testar se a API está respondendo
+app.get('/api/status', (req, res) => {
+    res.json({ status: 'ok', environment: process.env.NODE_ENV || 'development' })
+})
 
+// Exporta o app para a Vercel
+module.exports = app
+
+// Se for execução local (node server.js), sobe o servidor normalmente
 if (require.main === module) {
-    sequelize.sync({ alter: true })
+    const PORT = process.env.PORT || 3000
+    sequelize.authenticate()
         .then(() => {
-            console.log('Banco conectado e tabelas sincronizadas.')
+            console.log('--- CONECTADO AO BANCO ---')
             app.listen(PORT, () => {
-                console.log(`Servidor rodando em http://localhost:${PORT}`)
+                console.log(`Servidor local rodando em http://localhost:${PORT}`)
             })
         })
         .catch(err => {
-            console.error('Erro ao conectar no banco:', err)
+            console.error('Erro ao conectar no banco localmente:', err)
         })
 }
-
-module.exports = app
