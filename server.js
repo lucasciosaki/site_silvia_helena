@@ -41,13 +41,17 @@ app.use('/api/adm',    admRoutes)
 // sincroniza os models com o banco e sobe o servidor
 const PORT = process.env.PORT || 3000
 
-sequelize.sync({ alter: true })
-    .then(() => {
-        console.log('Banco conectado e tabelas sincronizadas.')
-        app.listen(PORT, () => {
-            console.log(`Servidor rodando em http://localhost:${PORT}`)
+if (require.main === module) {
+    sequelize.sync({ alter: true })
+        .then(() => {
+            console.log('Banco conectado e tabelas sincronizadas.')
+            app.listen(PORT, () => {
+                console.log(`Servidor rodando em http://localhost:${PORT}`)
+            })
         })
-    })
-    .catch(err => {
-        console.error('Erro ao conectar no banco:', err)
-    })
+        .catch(err => {
+            console.error('Erro ao conectar no banco:', err)
+        })
+}
+
+module.exports = app
