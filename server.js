@@ -27,6 +27,10 @@ const admRoutes    = require('./routes/adm')
 
 const app = express()
 
+console.log('--- INICIANDO SERVIDOR ---')
+console.log('DATABASE_URL presente:', !!process.env.DATABASE_URL)
+console.log('JWT_SECRET presente:', !!process.env.JWT_SECRET)
+
 app.use(cors())
 app.use(express.json())
 
