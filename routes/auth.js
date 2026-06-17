@@ -25,6 +25,7 @@ router.post('/cadastro', async (req, res) => {
         res.status(201).json({ mensagem: 'Cadastro realizado com sucesso.', id: usuario.id })
 
     } catch (err) {
+        console.error('ERRO NO CADASTRO:', err)
         res.status(500).json({ erro: 'Erro ao cadastrar.', detalhe: err.message })
     }
 })
@@ -61,6 +62,7 @@ router.post('/login', async (req, res) => {
         })
 
     } catch (err) {
+        console.error('ERRO NO LOGIN:', err)
         res.status(500).json({ erro: 'Erro ao fazer login.', detalhe: err.message })
     }
 })
