@@ -31,7 +31,8 @@ document.querySelector('#cadastro-nome').closest('form').querySelector('button')
 })
 
 // Login
-document.querySelector('#login-email').closest('form').querySelector('button').addEventListener('click', async () => {
+document.querySelector('#login-email').closest('form').querySelector('button').addEventListener('click', async (e) => {
+    e.preventDefault()
     const email = document.getElementById('login-email').value
     const senha = document.getElementById('login-senha').value
 

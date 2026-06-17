@@ -37,6 +37,9 @@ app.use((req, res, next) => {
     next()
 })
 
+// Serve arquivos estáticos da raiz
+app.use(express.static(path.join(__dirname, '../')))
+
 // rotas da API
 app.use('/api/auth',   authRoutes)
 app.use('/api/agenda', agendaRoutes)
