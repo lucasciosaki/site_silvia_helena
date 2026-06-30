@@ -131,10 +131,12 @@ router.get('/horarios/:data', autenticar, apenasAdmin, async (req, res) => {
             include: [
                 {
                     model: Agendamento,
+                    required: false,
                     include: [
                         {
                             model: Usuario,
-                            attributes: ['nome', 'email']
+                            attributes: ['nome', 'email'],
+                            required: false
                         }
                     ]
                 }

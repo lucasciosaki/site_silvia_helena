@@ -86,19 +86,21 @@ function criarItemHorario(horario) {
     primaryRow.appendChild(status)
     infoDiv.appendChild(primaryRow)
 
-    // Se o horário estiver reservado, exibe os detalhes do cliente
-    const agendamento = (horario.Agendamentos && horario.Agendamentos.length > 0)
-        ? horario.Agendamentos[0]
-        : null;
+    // Se o horário estiver reservado, exibe os detalhes do cliente (tratando variações de pluralização e caixa do Sequelize)
+    const agendamentosList = horario.Agendamentos || horario.agendamentos || [];
+    const agendamento = agendamentosList.length > 0
+        ? agendamentosList[0]
+        : (horario.Agendamento || horario.agendamento || null);
+    const usuario = agendamento ? (agendamento.Usuario || agendamento.usuario) : null;
 
-    if (!horario.disponivel && agendamento && agendamento.Usuario) {
+    if (!horario.disponivel && agendamento && usuario) {
         // Linha com nome e email do cliente
         const clientDetails = document.createElement('div')
         clientDetails.style.fontSize = '0.85rem'
         clientDetails.style.color = '#4b5563' // cinza escuro
         clientDetails.style.marginTop = '4px'
         clientDetails.style.fontWeight = 'normal'
-        clientDetails.textContent = `Cliente: ${agendamento.Usuario.nome} (${agendamento.Usuario.email})`
+        clientDetails.textContent = `Cliente: ${usuario.nome} (${usuario.email})`
         infoDiv.appendChild(clientDetails)
 
         // Se houver observações, exibe logo abaixo
@@ -143,6 +145,7 @@ async function renderizarListaAdm() {
         })
 
         const horarios = await res.json()
+        console.log('Horários recebidos (Admin):', horarios)
 
         if (horarios.length === 0) {
             const li = document.createElement('li')
