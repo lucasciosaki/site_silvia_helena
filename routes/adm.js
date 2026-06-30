@@ -8,16 +8,8 @@ const multer = require('multer')
 const nodemailer = require('nodemailer')
 const path = require('path')
 
-// configuração do multer (salva os mapas na pasta /uploads)
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/')
-    },
-    filename: (req, file, cb) => {
-        const nome = Date.now() + path.extname(file.originalname)
-        cb(null, nome)
-    }
-})
+// configuração do multer (salva os mapas na memória, ideal para a Vercel que é serverless e read-only)
+const storage = multer.memoryStorage()
 const upload = multer({ storage })
 
 // middleware que verifica se é admin
@@ -97,7 +89,7 @@ router.post('/mapa', autenticar, apenasAdmin, upload.single('mapa'), async (req,
             attachments: [
                 {
                     filename: req.file.originalname,
-                    path: req.file.path
+                    content: req.file.buffer
                 }
             ]
         })
