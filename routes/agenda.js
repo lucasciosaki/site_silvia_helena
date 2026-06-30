@@ -57,15 +57,15 @@ router.get('/meus-agendamentos', autenticar, async (req, res) => {
 // DELETE /api/agenda/cancelar/:id — cancela um agendamento e libera o horário correspondente
 router.delete('/cancelar/:id', autenticar, async (req, res) => {
     try {
-        const agendamento = await Agendamento.findOne({
-            where: {
-                id: req.params.id,
-                usuarioId: req.usuario.id
-            }
-        })
+        const agendamento = await Agendamento.findByPk(req.params.id)
 
         if (!agendamento) {
             return res.status(404).json({ erro: 'Agendamento não encontrado.' })
+        }
+
+        // Permite o cancelamento se for admin OU se for o próprio cliente dono do agendamento
+        if (!req.usuario.isAdmin && agendamento.usuarioId !== req.usuario.id) {
+            return res.status(403).json({ erro: 'Acesso negado. Você só pode cancelar seus próprios agendamentos.' })
         }
 
         const horarioId = agendamento.horarioId

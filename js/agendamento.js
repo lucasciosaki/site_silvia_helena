@@ -2,6 +2,8 @@ let dataAtual = new Date();
 let selecaoTemporaria = { dataChave: null, hora: null, horarioId: null, dia: null, mes: null };
 
 const token = localStorage.getItem('token')
+const usuario = JSON.parse(localStorage.getItem('usuario'))
+const isAdmin = usuario && usuario.isAdmin
 
 // redireciona pra login se não estiver logado
 if (!token) {
@@ -185,16 +187,27 @@ async function renderizarAgendamentosMarcados() {
     listaUI.innerHTML = ''
 
     try {
-        const res = await fetch('/api/agenda/meus-agendamentos', {
+        const url = isAdmin ? '/api/adm/agendamentos' : '/api/agenda/meus-agendamentos'
+        const res = await fetch(url, {
             headers: { 'Authorization': `Bearer ${token}` }
         })
 
         const agendamentos = await res.json()
 
         if (!agendamentos.length) {
-            listaUI.innerHTML = '<p>Você não possui agendamentos marcados.</p>'
+            listaUI.innerHTML = isAdmin
+                ? '<p>Nenhum agendamento marcado no sistema.</p>'
+                : '<p>Você não possui agendamentos marcados.</p>'
             return
         }
+
+        // Ordena por data e hora na memória
+        agendamentos.sort((a, b) => {
+            if (a.Horario.data !== b.Horario.data) {
+                return a.Horario.data.localeCompare(b.Horario.data)
+            }
+            return a.Horario.hora.localeCompare(b.Horario.hora)
+        })
 
         agendamentos.forEach(item => {
             const data = item.Horario.data.split('-').reverse().slice(0, 2).join('/')
@@ -203,8 +216,42 @@ async function renderizarAgendamentosMarcados() {
             const card = document.createElement('div')
             card.className = 'agendamento-card'
 
-            const infoSpan = document.createElement('span')
-            infoSpan.innerHTML = `<strong>${data} às ${hora}</strong>`
+            // Para o admin, colocamos o flex-direction column para organizar melhor a info do cliente
+            if (isAdmin) {
+                card.style.flexDirection = 'column'
+                card.style.gap = '8px'
+                card.style.alignItems = 'flex-start'
+            }
+
+            // Div que segura as infos do card
+            const infoDiv = document.createElement('div')
+            infoDiv.style.display = 'flex'
+            infoDiv.style.flexDirection = 'column'
+            infoDiv.style.gap = '4px'
+
+            const timeSpan = document.createElement('span')
+            timeSpan.innerHTML = `<strong>${data} às ${hora}</strong>`
+            infoDiv.appendChild(timeSpan)
+
+            // Se for admin, mostra os detalhes do cliente
+            if (isAdmin && item.Usuario) {
+                const userDiv = document.createElement('div')
+                userDiv.style.fontSize = '0.9rem'
+                userDiv.style.color = '#4b5563'
+                userDiv.innerHTML = `Cliente: <strong>${item.Usuario.nome}</strong> (${item.Usuario.email})`
+                infoDiv.appendChild(userDiv)
+
+                if (item.observacao) {
+                    const obsDiv = document.createElement('div')
+                    obsDiv.style.fontSize = '0.85rem'
+                    obsDiv.style.color = '#7c2d12'
+                    obsDiv.style.fontStyle = 'italic'
+                    obsDiv.textContent = `Obs: "${item.observacao}"`
+                    infoDiv.appendChild(obsDiv)
+                }
+            }
+
+            card.appendChild(infoDiv)
 
             const btn = document.createElement('button')
             btn.className = 'btn-cancelar'
@@ -212,7 +259,11 @@ async function renderizarAgendamentosMarcados() {
             btn.setAttribute('aria-label', `Cancelar agendamento do dia ${data} às ${hora}`)
             btn.onclick = () => cancelarAgendamento(item.id)
 
-            card.appendChild(infoSpan)
+            // Ajusta o botão se for admin para alinhar à direita ou em baixo de forma flex
+            if (isAdmin) {
+                btn.style.alignSelf = 'flex-end'
+            }
+
             card.appendChild(btn)
             listaUI.appendChild(card)
         })
