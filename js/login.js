@@ -9,6 +9,12 @@ document.querySelector('#cadastro-nome').closest('form').querySelector('button')
         return
     }
 
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+        alert('Por favor, insira um e-mail válido.')
+        return
+    }
+
     try {
         const res = await fetch('/api/auth/cadastro', {
             method: 'POST',
@@ -38,6 +44,12 @@ document.querySelector('#login-email').closest('form').querySelector('button').a
 
     if (!email || !senha) {
         alert('Preencha todos os campos.')
+        return
+    }
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailRegex.test(email)) {
+        alert('Por favor, insira um e-mail válido.')
         return
     }
 

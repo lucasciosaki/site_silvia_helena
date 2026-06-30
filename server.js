@@ -53,7 +53,7 @@ app.get('/api/status', (req, res) => {
 // Exporta o app para a Vercel
 module.exports = app
 
-// Se for execução local (node server.js), sobe o servidor normalmente
+// Se for execução local, sobe o servidor normalmente
 if (require.main === module) {
     const PORT = process.env.PORT || 3000
     sequelize.authenticate()
