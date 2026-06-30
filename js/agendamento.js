@@ -153,19 +153,46 @@ document.getElementById('btn-final').onclick = async function () {
     }
 }
 
+async function cancelarAgendamento(id) {
+    if (!confirm('Deseja realmente cancelar este agendamento?')) {
+        return
+    }
+
+    try {
+        const res = await fetch(`/api/agenda/cancelar/${id}`, {
+            method: 'DELETE',
+            headers: { 'Authorization': `Bearer ${token}` }
+        })
+
+        const data = await res.json()
+
+        if (!res.ok) {
+            alert(data.erro || 'Erro ao cancelar agendamento.')
+            return
+        }
+
+        alert('Agendamento cancelado com sucesso!')
+        renderizarAgendamentosMarcados()
+        renderizarCalendario()
+
+    } catch (err) {
+        alert('Erro de conexão com o servidor.')
+    }
+}
+
 async function renderizarAgendamentosMarcados() {
     const listaUI = document.getElementById('lista-agendamentos')
     listaUI.innerHTML = ''
 
     try {
-        const res = await fetch('/api/adm/agendamentos', {
+        const res = await fetch('/api/agenda/meus-agendamentos', {
             headers: { 'Authorization': `Bearer ${token}` }
         })
 
         const agendamentos = await res.json()
 
         if (!agendamentos.length) {
-            listaUI.innerHTML = '<p>Nenhum agendamento ainda.</p>'
+            listaUI.innerHTML = '<p>Você não possui agendamentos marcados.</p>'
             return
         }
 
@@ -175,7 +202,18 @@ async function renderizarAgendamentosMarcados() {
 
             const card = document.createElement('div')
             card.className = 'agendamento-card'
-            card.innerHTML = `<span><strong>${data} às ${hora}</strong></span>`
+
+            const infoSpan = document.createElement('span')
+            infoSpan.innerHTML = `<strong>${data} às ${hora}</strong>`
+
+            const btn = document.createElement('button')
+            btn.className = 'btn-cancelar'
+            btn.textContent = 'Cancelar'
+            btn.setAttribute('aria-label', `Cancelar agendamento do dia ${data} às ${hora}`)
+            btn.onclick = () => cancelarAgendamento(item.id)
+
+            card.appendChild(infoSpan)
+            card.appendChild(btn)
             listaUI.appendChild(card)
         })
 

@@ -30,6 +30,59 @@ router.post('/reservar', autenticar, async (req, res) => {
     }
 })
 
+// GET /api/agenda/meus-agendamentos — lista os agendamentos do usuário logado
+router.get('/meus-agendamentos', autenticar, async (req, res) => {
+    try {
+        const agendamentos = await Agendamento.findAll({
+            where: { usuarioId: req.usuario.id },
+            include: [
+                { model: Horario, attributes: ['id', 'data', 'hora'] }
+            ]
+        })
+
+        // Ordena na memória para evitar problemas com dialect e includes no Sequelize
+        agendamentos.sort((a, b) => {
+            if (a.Horario.data !== b.Horario.data) {
+                return a.Horario.data.localeCompare(b.Horario.data)
+            }
+            return a.Horario.hora.localeCompare(b.Horario.hora)
+        })
+
+        res.json(agendamentos)
+    } catch (err) {
+        res.status(500).json({ erro: 'Erro ao buscar seus agendamentos.', detalhe: err.message })
+    }
+})
+
+// DELETE /api/agenda/cancelar/:id — cancela um agendamento e libera o horário correspondente
+router.delete('/cancelar/:id', autenticar, async (req, res) => {
+    try {
+        const agendamento = await Agendamento.findOne({
+            where: {
+                id: req.params.id,
+                usuarioId: req.usuario.id
+            }
+        })
+
+        if (!agendamento) {
+            return res.status(404).json({ erro: 'Agendamento não encontrado.' })
+        }
+
+        const horarioId = agendamento.horarioId
+
+        await agendamento.destroy()
+
+        await Horario.update(
+            { disponivel: true },
+            { where: { id: horarioId } }
+        )
+
+        res.json({ mensagem: 'Agendamento cancelado com sucesso.' })
+    } catch (err) {
+        res.status(500).json({ erro: 'Erro ao cancelar agendamento.', detalhe: err.message })
+    }
+})
+
 // GET /api/agenda/:data — fica depois
 router.get('/:data', async (req, res) => {
     try {

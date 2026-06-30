@@ -66,12 +66,53 @@ async function excluirHorario(id) {
 function criarItemHorario(horario) {
     const li = document.createElement('li')
 
+    // Contêiner para as informações do horário (esquerda)
+    const infoDiv = document.createElement('div')
+    infoDiv.className = 'horario-info'
+
+    // Linha principal: hora + status básico
+    const primaryRow = document.createElement('div')
+    primaryRow.style.display = 'flex'
+    primaryRow.style.alignItems = 'center'
+    primaryRow.style.gap = '8px'
+
     const span = document.createElement('strong')
     span.textContent = horario.hora.slice(0, 5)
+    primaryRow.appendChild(span)
 
     const status = document.createElement('span')
     status.textContent = horario.disponivel ? ' — disponível' : ' — reservado'
     status.style.color = horario.disponivel ? 'green' : 'gray'
+    primaryRow.appendChild(status)
+    infoDiv.appendChild(primaryRow)
+
+    // Se o horário estiver reservado, exibe os detalhes do cliente
+    const agendamento = (horario.Agendamentos && horario.Agendamentos.length > 0)
+        ? horario.Agendamentos[0]
+        : null;
+
+    if (!horario.disponivel && agendamento && agendamento.Usuario) {
+        // Linha com nome e email do cliente
+        const clientDetails = document.createElement('div')
+        clientDetails.style.fontSize = '0.85rem'
+        clientDetails.style.color = '#4b5563' // cinza escuro
+        clientDetails.style.marginTop = '4px'
+        clientDetails.style.fontWeight = 'normal'
+        clientDetails.textContent = `Cliente: ${agendamento.Usuario.nome} (${agendamento.Usuario.email})`
+        infoDiv.appendChild(clientDetails)
+
+        // Se houver observações, exibe logo abaixo
+        if (agendamento.observacao) {
+            const obsDiv = document.createElement('div')
+            obsDiv.style.fontSize = '0.8rem'
+            obsDiv.style.color = '#7c2d12' // cor laranja/tijolo que combina com o tema quente
+            obsDiv.style.marginTop = '2px'
+            obsDiv.style.fontWeight = 'normal'
+            obsDiv.style.fontStyle = 'italic'
+            obsDiv.textContent = `Obs: "${agendamento.observacao}"`
+            infoDiv.appendChild(obsDiv)
+        }
+    }
 
     const btn = document.createElement('button')
     btn.className = 'btn-remover'
@@ -79,8 +120,7 @@ function criarItemHorario(horario) {
     btn.setAttribute('aria-label', `Remover horário das ${horario.hora}`)
     btn.onclick = () => excluirHorario(horario.id)
 
-    li.appendChild(span)
-    li.appendChild(status)
+    li.appendChild(infoDiv)
     li.appendChild(btn)
     return li
 }

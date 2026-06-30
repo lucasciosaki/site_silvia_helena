@@ -127,7 +127,19 @@ router.get('/usuarios', autenticar, apenasAdmin, async (req, res) => {
 router.get('/horarios/:data', autenticar, apenasAdmin, async (req, res) => {
     try {
         const horarios = await Horario.findAll({
-            where: { data: req.params.data }
+            where: { data: req.params.data },
+            include: [
+                {
+                    model: Agendamento,
+                    include: [
+                        {
+                            model: Usuario,
+                            attributes: ['nome', 'email']
+                        }
+                    ]
+                }
+            ],
+            order: [['hora', 'ASC']]
         })
         res.json(horarios)
     } catch (err) {
