@@ -42,11 +42,21 @@ function renderizarCalendario() {
         diasGrid.appendChild(vazio);
     }
 
+    const hoje = new Date();
+    hoje.setHours(0, 0, 0, 0);
+
     for (let dia = 1; dia <= ultimoDiaMes; dia++) {
         const divDia = document.createElement('div');
         divDia.className = 'dia';
         divDia.innerText = dia;
-        divDia.onclick = () => selecionarDia(dia, mes, ano);
+
+        const dataComparacao = new Date(ano, mes, dia);
+
+        if (dataComparacao < hoje) {
+            divDia.classList.add('dia--passado');
+        } else {
+            divDia.onclick = () => selecionarDia(dia, mes, ano);
+        }
         diasGrid.appendChild(divDia);
     }
 }

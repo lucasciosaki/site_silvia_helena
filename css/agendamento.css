@@ -103,10 +103,17 @@ body {
   font-size: 1.1rem;
 }
 
-/* Modificador: hover desabilitado para dias "vazios" do calendário */
-.dia:hover:not(.dia--vazio) {
+/* Modificador: hover desabilitado para dias "vazios" e passados do calendário */
+.dia:hover:not(.dia--vazio):not(.dia--passado) {
   background: #7a0d8d;
   color: var(--color-surface);
+}
+
+/* Modificador: dias que já passaram */
+.dia--passado {
+  color: #9ca3af;
+  cursor: not-allowed;
+  opacity: 0.55;
 }
 
 /* Modificador: dia selecionado pelo usuário */
